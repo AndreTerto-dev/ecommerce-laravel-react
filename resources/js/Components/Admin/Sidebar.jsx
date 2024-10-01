@@ -1,12 +1,21 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { SidebarData } from "../Data/Data";
 import { UilSignOutAlt } from "@iconscout/react-unicons";
 import Logo from "../../../../public/assets/logo.png";
-import { Link } from "@inertiajs/react";
-import ResponsiveNavLink from "@/Components/ResponsiveNavLink";
+import { Link, usePage } from "@inertiajs/react"; // Importar usePage para obter a rota atual
 
 const Sidebar = () => {
+    const { url } = usePage(); // Obter a URL atual
     const [selected, setSelected] = useState(0);
+
+    useEffect(() => {
+        const currentIndex = SidebarData.findIndex(
+            (item) => item.route === url
+        );
+        if (currentIndex !== -1) {
+            setSelected(currentIndex);
+        }
+    }, [url]);
 
     return (
         <div className="flex flex-col h-screen w-52 bg-transparent">
@@ -47,15 +56,10 @@ const Sidebar = () => {
                             </Link>
                         </div>
                     ))}
-                    <ResponsiveNavLink
-                        method="post"
-                        href={route("logout")}
-                        as="button"
-                        className="flex items-center gap-2 p-2 rounded-md hover:bg-blue-50"
-                    >
+                    <div className="flex items-center gap-2 p-2 rounded-md cursor-pointer hover:bg-blue-50">
                         <UilSignOutAlt />
-                        <span className="text-gray-700 text-sm">Log Out</span>
-                    </ResponsiveNavLink>
+                        <span className="text-gray-700 text-sm">Sair</span>
+                    </div>
                 </div>
             </div>
         </div>
