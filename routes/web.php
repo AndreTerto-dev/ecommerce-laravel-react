@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\BrandController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -17,7 +18,7 @@ Route::get('/', function () {
 
 Route::get('/dashboard', function () {
     return Inertia::render('User/Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+})->middleware(['auth', 'verified', 'role:customer'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -27,10 +28,34 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__.'/auth.php';
 
-Route::get('admin/dashboard', function () {
-    return Inertia::render('Admin/Dashboard');
-})->middleware(['auth', 'verified', 'role:admin'])->name('admin.dashboard');
+Route::prefix('admin')->middleware(['auth', 'verified', 'role:admin'])->group(function () {
+    Route::get('dashboard', function () {
+        return Inertia::render('Admin/Dashboard');
+    })->name('admin.dashboard');
 
-Route::get('vendor/dashboard', function () {
-    return Inertia::render('Vendor/Dashboard');
-})->middleware(['auth', 'verified', 'role:vendor'])->name('vendor.dashboard');
+    Route::get('orders', function () {
+        return Inertia::render('Admin/Orders');
+    })->name('admin.orders');
+
+    Route::get('customers', function () {
+        return Inertia::render('Admin/Customers');
+    })->name('admin.customers');
+
+    Route::get('products', function () {
+        return Inertia::render('Admin/Products');
+    })->name('admin.products');
+
+    Route::get('analytics', function () {
+        return Inertia::render('Admin/Analytics');
+    })->name('admin.analytics');
+
+    Route::resource('brand', BrandController::class);
+});
+
+
+Route::prefix('vendor')->middleware(['auth', 'verified', 'role:vendor'])->group(function () {
+    Route::get('dashboard', function () {
+        return Inertia::render('Vendor/Dashboard');
+    })->name('vendor.dashboard');
+});
+
