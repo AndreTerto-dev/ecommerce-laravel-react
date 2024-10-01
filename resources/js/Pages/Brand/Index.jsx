@@ -49,14 +49,13 @@ export default function Index({ auth, brands, queryParams = null, success }) {
         >
             <Head title="Brands" />
 
-            <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     {success && (
-                        <div className="bg-emerald-600 py-2 px-4 text-white rounded mb-4">
+                        <div className="bg-emerald-600 py-2 px-4 text-white rounded mb-2">
                             {success}
                         </div>
                     )}
-                    <div className="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg -mt-16">
+                    <div className="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                         <div className="p-6 text-gray-900 dark:text-gray-100">
                             <div className="overflow-auto">
                                 <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
@@ -162,7 +161,6 @@ export default function Index({ auth, brands, queryParams = null, success }) {
                         </div>
                     </div>
                 </div>
-            </div>
         </Admin>
     );
 }
