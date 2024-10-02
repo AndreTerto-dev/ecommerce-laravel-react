@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { SidebarData } from "../Data/Data";
 import { UilSignOutAlt } from "@iconscout/react-unicons";
 import Logo from "../../../../public/assets/logo.png";
-import { Link, usePage } from "@inertiajs/react"; // Importar usePage para obter a rota atual
+import { Link, usePage } from "@inertiajs/react";
 
 const Sidebar = () => {
     const { url } = usePage(); // Obter a URL atual

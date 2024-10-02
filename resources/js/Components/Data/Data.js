@@ -27,7 +27,7 @@ export const SidebarData = [
     {
         icon: UilBookmark,
         heading: 'Categories',
-        route: '/admin/categories'
+        route: '/admin/category'
     },
     {
         icon: UilUsersAlt,
