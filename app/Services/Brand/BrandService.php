@@ -15,11 +15,14 @@ class BrandService
     {
         $query = $this->brand->query();
 
+        $sortFields = request("sort_field", "created_at");
+        $sortDirection = request("sort_direction", "desc");
+
         if (isset($filters['name'])) {
             $query->where('name', 'like', '%' . $filters['name'] . '%');
         }
 
-        return $query->orderBy('id', 'desc')->paginate(10);
+        return $brand = $query->orderBy($sortFields, $sortDirection)->paginate(10);
     }
 
     public function create(array $data)
