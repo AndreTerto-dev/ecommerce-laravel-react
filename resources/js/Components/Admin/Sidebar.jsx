@@ -30,7 +30,7 @@ const Sidebar = () => {
             </div>
 
             <div className="flex-grow overflow-y-auto mb-8">
-                <div className="flex flex-col space-y-5 p-4">
+                <div className="flex flex-col space-y-4 p-4">
                     {SidebarData.map((item, index) => (
                         <div key={index}>
                             <Link href={item.route}>

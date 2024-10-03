@@ -5,43 +5,49 @@ import {
     UilPackage,
     UilChart,
     UilLabel,
-    UilBookmark, 
+    UilBookmark,
+    UilShield,
 } from '@iconscout/react-unicons';
 
 export const SidebarData = [
     {
         icon: UilEstate,
         heading: 'DashBoard',
-        route: '/admin/dashboard'
+        route: '/admin/dashboard',
     },
     {
         icon: UilPackage,
         heading: 'Products',
-        route: '/admin/products'
+        route: '/admin/products',
     },
     {
         icon: UilClipboardAlt,
         heading: 'Orders',
-        route: '/admin/orders'
+        route: '/admin/orders',
     },
     {
         icon: UilBookmark,
         heading: 'Categories',
-        route: '/admin/category'
+        route: '/admin/category',
     },
     {
         icon: UilUsersAlt,
         heading: 'Customers',
-        route: '/admin/customers'
+        route: '/admin/customers',
     },
     {
         icon: UilLabel,
         heading: 'Brands',
-        route: '/admin/brand'
+        route: '/admin/brand',
+    },
+    {
+        icon: UilShield,
+        heading: 'Teams',
+        route: '/admin/team',
     },
     {
         icon: UilChart,
         heading: 'Analytics',
-        route: '/admin/analytics'
+        route: '/admin/analytics',
     },
 ];
