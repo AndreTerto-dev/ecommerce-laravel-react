@@ -18,7 +18,7 @@ export const SidebarData = [
     {
         icon: UilPackage,
         heading: 'Products',
-        route: '/admin/products',
+        route: '/admin/product',
     },
     {
         icon: UilClipboardAlt,

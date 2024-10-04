@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TeamController;
 use Illuminate\Foundation\Application;
@@ -55,6 +56,8 @@ Route::prefix('admin')->middleware(['auth', 'verified', 'role:admin'])->group(fu
     Route::resource('category', CategoryController::class);
 
     Route::resource('team', TeamController::class);
+    
+    Route::resource('product', ProductController::class);
 });
 
 
