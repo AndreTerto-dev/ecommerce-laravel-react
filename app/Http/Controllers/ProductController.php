@@ -11,6 +11,7 @@ use App\Http\Resources\TeamResource;
 use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\ProductImage;
 use App\Models\Team;
 use App\Services\Product\ProductService;
 use Illuminate\Support\Facades\Storage;
@@ -53,25 +54,48 @@ class ProductController extends Controller
     public function store(ProductRequest $request)
     {
         $data = $request->validated();
-        $image = $data['image'] ?? null;
-        if ($image) {
-            $productNameSlug = Str::slug($data['name']);
-            $data['image_path'] = $image->store('product/' . $productNameSlug, 'public');
+
+        $images = $data['images'] ?? null;
+
+        $product = Product::create($data);
+
+        if ($images) {
+            foreach ($images as $id => $image) {
+                $productNameSlug = Str::slug($data['name']);
+
+                $randomString = Str::random(40);
+                $imageName = $randomString . '.' . $image->getClientOriginalExtension();
+                $imagePath = $image->storeAs('products/' . $productNameSlug, $imageName, 'public');
+
+
+                ProductImage::create([
+                    'product_id' => $product->id,
+                    'image_path' => $imagePath,
+                    'index' => $id,
+                ]);
+
+            }
         }
 
-        $this->productService->create($data);
-
         return to_route('product.index')
-            ->with('success', 'Product was created');
+        ->with('success', 'Product was created successfully');
     }
+
 
     public function show(int $id)
     {
         $product = $this->productService->getById($id);
 
+        $images = ProductImage::where('product_id', $id)
+        ->pluck('image_path')
+        ->map(function ($imagePath) {
+            return Storage::url($imagePath);
+        });
+
         return inertia('Product/Show', [
             'product' => new ProductResource($product),
-            "success" => session('success'),
+            'images' => $images,
+            'success' => session('success'),
         ]);
     }
 
@@ -92,27 +116,50 @@ class ProductController extends Controller
     public function update(ProductRequest $request, Product $product)
     {
         $data = $request->validated();
-        $image = $data['image'] ?? null;
-        if ($image) {
-            if ($product->image_path) {
-                Storage::disk('public')->deleteDirectory(dirname($product->image_path));
-            }
-            $data['image_path'] = $image->store('product/' . Str::random(), 'public');
-        }
+
+        $images = $data['images'] ?? null;
+
         $this->productService->update($product->id, $data);
 
+        if ($images) {
+            foreach ($product->images as $oldImage) {
+                Storage::disk('public')->delete($oldImage->image_path);
+                $oldImage->delete();
+            }
+
+            foreach ($images as $id => $image) {
+                $productNameSlug = Str::slug($data['name']);
+
+                $randomString = Str::random(40);
+                $imageName = $randomString . '.' . $image->getClientOriginalExtension();
+                $imagePath = $image->storeAs('products/' . $productNameSlug, $imageName, 'public');
+
+
+                ProductImage::create([
+                    'product_id' => $product->id,
+                    'image_path' => $imagePath,
+                    'index' => $id,
+                ]);
+            }
+        }
+
         return to_route('product.index')
-            ->with('success', "Product \"$product->name\" was updated");
+        ->with('success', "Product \"{$product->name}\" was updated successfully");
     }
 
     public function destroy(Product $product)
     {
         $name = $product->name;
-        $this->productService->destroy($product->id);
-        if ($product->image_path) {
-            Storage::disk('public')->deleteDirectory(dirname($product->image_path));
+
+        foreach ($product->images as $image) {
+            Storage::disk('public')->delete($image->image_path);
+            $image->delete();
         }
+
+        $this->productService->destroy($product->id);
+
         return to_route('product.index')
             ->with('success', "Product \"$name\" was deleted");
     }
+
 }
