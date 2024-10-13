@@ -11,11 +11,40 @@ export default function Create({ auth, brands, categories, teams }) {
         description: "",
         price: "",
         stock_quantity: "",
+        brand_id: "",
+        category_id: "",
+        team_id: "",
+        images: [],
     });
+
+    const handleImageChange = (e) => {
+        setData("images", e.target.files);
+    };
 
     const onSubmit = (e) => {
         e.preventDefault();
-        post(route("product.store"));
+
+        const formData = new FormData();
+        formData.append("name", data.name);
+        formData.append("description", data.description);
+        formData.append("price", data.price);
+        formData.append("stock_quantity", data.stock_quantity);
+        formData.append("brand_id", data.brand_id);
+        formData.append("category_id", data.category_id);
+        formData.append("team_id", data.team_id);
+
+        if (data.images) {
+            for (let i = 0; i < data.images.length; i++) {
+                formData.append(`images[${i}]`, data.images[i]);
+            }
+        }
+
+        post(route("product.store"), {
+            data: formData,
+            headers: {
+                "Content-Type": "multipart/form-data",
+            },
+        });
     };
 
     return (
@@ -33,191 +62,224 @@ export default function Create({ auth, brands, categories, teams }) {
 
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                    <div className="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+                    <div className="bg-transparent overflow-hidden shadow-2xl sm:rounded-lg">
                         <form
                             onSubmit={onSubmit}
-                            className="p-6 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg"
+                            className="p-6 sm:p-8 bg-white/15 shadow sm:rounded-lg"
+                            encType="multipart/form-data"
                         >
-                            {/* First Part */}
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                <div>
-                                    <InputLabel
-                                        htmlFor="product_name"
-                                        value="Product Name"
-                                    />
-                                    <TextInput
-                                        id="product_name"
-                                        type="text"
-                                        name="name"
-                                        value={data.name}
-                                        className="mt-1 block w-full"
-                                        isFocused={true}
-                                        onChange={(e) =>
-                                            setData("name", e.target.value)
-                                        }
-                                    />
-                                    <InputError
-                                        message={errors.name}
-                                        className="mt-2"
-                                    />
-                                </div>
-                                <div>
-                                    <InputLabel
-                                        htmlFor="product_description"
-                                        value="Product Description"
-                                    />
-                                    <TextInput
-                                        id="product_description"
-                                        type="text"
-                                        name="description"
-                                        value={data.description}
-                                        className="mt-1 block w-full"
-                                        onChange={(e) =>
-                                            setData(
-                                                "description",
-                                                e.target.value
-                                            )
-                                        }
-                                    />
-                                    <InputError
-                                        message={errors.description}
-                                        className="mt-2"
-                                    />
-                                </div>
-                                <div>
-                                    <InputLabel
-                                        htmlFor="product_price"
-                                        value="Product Price"
-                                    />
-                                    <TextInput
-                                        id="product_price"
-                                        type="number"
-                                        name="price"
-                                        value={data.price}
-                                        className="mt-1 block w-full"
-                                        onChange={(e) =>
-                                            setData("price", e.target.value)
-                                        }
-                                    />
-                                    <InputError
-                                        message={errors.price}
-                                        className="mt-2"
-                                    />
-                                </div>
-                                <div>
-                                    <InputLabel
-                                        htmlFor="product_stock"
-                                        value="Product Stock"
-                                    />
-                                    <TextInput
-                                        id="product_stock"
-                                        type="number"
-                                        name="stock_quantity"
-                                        value={data.stock}
-                                        className="mt-1 block w-full"
-                                        onChange={(e) =>
-                                            setData("stock_quantity", e.target.value)
-                                        }
-                                    />
-                                    <InputError
-                                        message={errors.stock}
-                                        className="mt-2"
-                                    />
-                                </div>
-                            </div>
-
-                            {/* Second Part */}
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
-                                <div>
-                                    <InputLabel
-                                        htmlFor="product_brand_id"
-                                        value="Brand"
-                                    />
-                                    <SelectInput
-                                        name="brand_id"
-                                        id="product_brand_id"
-                                        className="mt-1 block w-full"
-                                        onChange={(e) =>
-                                            setData("brand_id", e.target.value)
-                                        }
-                                    >
-                                        <option value="">Select Brand</option>
-                                        {brands.data.map((brand) => (
-                                            <option
-                                                value={brand.id}
-                                                key={brand.id}
-                                            >
-                                                {brand.name}
-                                            </option>
-                                        ))}
-                                    </SelectInput>
-                                    <InputError
-                                        message={errors.brand_id}
-                                        className="mt-2"
-                                    />
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div className="space-y-4">
+                                    <div>
+                                        <InputLabel
+                                            htmlFor="product_name"
+                                            value="Product Name"
+                                        />
+                                        <TextInput
+                                            id="product_name"
+                                            type="text"
+                                            name="name"
+                                            value={data.name}
+                                            className="mt-1 block w-full"
+                                            isFocused={true}
+                                            onChange={(e) =>
+                                                setData("name", e.target.value)
+                                            }
+                                        />
+                                        <InputError
+                                            message={errors.name}
+                                            className="mt-2"
+                                        />
+                                    </div>
+                                    <div>
+                                        <InputLabel
+                                            htmlFor="product_description"
+                                            value="Product Description"
+                                        />
+                                        <TextInput
+                                            id="product_description"
+                                            type="text"
+                                            name="description"
+                                            value={data.description}
+                                            className="mt-1 block w-full"
+                                            onChange={(e) =>
+                                                setData(
+                                                    "description",
+                                                    e.target.value
+                                                )
+                                            }
+                                        />
+                                        <InputError
+                                            message={errors.description}
+                                            className="mt-2"
+                                        />
+                                    </div>
+                                    <div>
+                                        <InputLabel
+                                            htmlFor="product_price"
+                                            value="Product Price"
+                                        />
+                                        <TextInput
+                                            id="product_price"
+                                            type="number"
+                                            name="price"
+                                            value={data.price}
+                                            className="mt-1 block w-full"
+                                            onChange={(e) =>
+                                                setData("price", e.target.value)
+                                            }
+                                        />
+                                        <InputError
+                                            message={errors.price}
+                                            className="mt-2"
+                                        />
+                                    </div>
+                                    <div>
+                                        <InputLabel
+                                            htmlFor="product_stock"
+                                            value="Product Stock"
+                                        />
+                                        <TextInput
+                                            id="product_stock"
+                                            type="number"
+                                            name="stock_quantity"
+                                            value={data.stock_quantity}
+                                            className="mt-1 block w-full"
+                                            onChange={(e) =>
+                                                setData(
+                                                    "stock_quantity",
+                                                    e.target.value
+                                                )
+                                            }
+                                        />
+                                        <InputError
+                                            message={errors.stock_quantity}
+                                            className="mt-2"
+                                        />
+                                    </div>
                                 </div>
 
-                                <div>
-                                    <InputLabel
-                                        htmlFor="product_category_id"
-                                        value="Category"
-                                    />
-                                    <SelectInput
-                                        name="category_id"
-                                        id="product_category_id"
-                                        className="mt-1 block w-full"
-                                        onChange={(e) =>
-                                            setData(
-                                                "category_id",
-                                                e.target.value
-                                            )
-                                        }
-                                    >
-                                        <option value="">
-                                            Select Category
-                                        </option>
-                                        {categories.data.map((category) => (
-                                            <option
-                                                value={category.id}
-                                                key={category.id}
-                                            >
-                                                {category.name}
+                                <div className="space-y-4">
+                                    <div>
+                                        <InputLabel
+                                            htmlFor="product_category_id"
+                                            value="Category"
+                                        />
+                                        <SelectInput
+                                            name="category_id"
+                                            id="product_category_id"
+                                            className="mt-1 block w-full"
+                                            onChange={(e) =>
+                                                setData(
+                                                    "category_id",
+                                                    e.target.value
+                                                )
+                                            }
+                                        >
+                                            <option value="">
+                                                Select Category
                                             </option>
-                                        ))}
-                                    </SelectInput>
-                                    <InputError
-                                        message={errors.category_id}
-                                        className="mt-2"
-                                    />
-                                </div>
+                                            {categories.data.map((category) => (
+                                                <option
+                                                    value={category.id}
+                                                    key={category.id}
+                                                >
+                                                    {category.name}
+                                                </option>
+                                            ))}
+                                        </SelectInput>
+                                        <InputError
+                                            message={errors.category_id}
+                                            className="mt-2"
+                                        />
+                                    </div>
 
-                                <div>
-                                    <InputLabel
-                                        htmlFor="product_team_id"
-                                        value="Team"
-                                    />
-                                    <SelectInput
-                                        name="team_id"
-                                        id="product_team_id"
-                                        className="mt-1 block w-full"
-                                        onChange={(e) =>
-                                            setData("team_id", e.target.value)
-                                        }
-                                    >
-                                        <option value="">Select Team</option>
-                                        {teams.data.map((team) => (
-                                            <option
-                                                value={team.id}
-                                                key={team.id}
-                                            >
-                                                {team.name}
+                                    <div>
+                                        <InputLabel
+                                            htmlFor="product_team_id"
+                                            value="Team"
+                                        />
+                                        <SelectInput
+                                            name="team_id"
+                                            id="product_team_id"
+                                            className="mt-1 block w-full"
+                                            onChange={(e) =>
+                                                setData(
+                                                    "team_id",
+                                                    e.target.value
+                                                )
+                                            }
+                                        >
+                                            <option value="">
+                                                Select Team
                                             </option>
-                                        ))}
-                                    </SelectInput>
-                                    <InputError
-                                        message={errors.team_id}
-                                        className="mt-2"
-                                    />
+                                            {teams.data.map((team) => (
+                                                <option
+                                                    value={team.id}
+                                                    key={team.id}
+                                                >
+                                                    {team.name}
+                                                </option>
+                                            ))}
+                                        </SelectInput>
+                                        <InputError
+                                            message={errors.team_id}
+                                            className="mt-2"
+                                        />
+                                    </div>
+
+                                    <div>
+                                        <InputLabel
+                                            htmlFor="product_brand_id"
+                                            value="Brand"
+                                        />
+                                        <SelectInput
+                                            name="brand_id"
+                                            id="product_brand_id"
+                                            className="mt-1 block w-full"
+                                            onChange={(e) =>
+                                                setData(
+                                                    "brand_id",
+                                                    e.target.value
+                                                )
+                                            }
+                                        >
+                                            <option value="">
+                                                Select Brand
+                                            </option>
+                                            {brands.data.map((brand) => (
+                                                <option
+                                                    value={brand.id}
+                                                    key={brand.id}
+                                                >
+                                                    {brand.name}
+                                                </option>
+                                            ))}
+                                        </SelectInput>
+                                        <InputError
+                                            message={errors.brand_id}
+                                            className="mt-2"
+                                        />
+                                    </div>
+
+                                    <div>
+                                        <InputLabel
+                                            htmlFor="product_images"
+                                            value="Product Images"
+                                        />
+                                        <input
+                                            id="product_images"
+                                            type="file"
+                                            name="images"
+                                            className="mt-1 block w-full"
+                                            onChange={handleImageChange}
+                                            multiple
+                                        />
+                                        <InputError
+                                            message={errors.images}
+                                            className="mt-2"
+                                        />
+                                    </div>
                                 </div>
                             </div>
 
