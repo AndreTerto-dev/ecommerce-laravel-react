@@ -6,6 +6,7 @@ use App\Exceptions\Product\ProductAlreadyExistsException;
 use App\Exceptions\Product\ProductNotFoundException;
 use App\Models\Product;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Storage;
 
 class ProductService
 {
@@ -13,7 +14,10 @@ class ProductService
 
     public function index(array $filters = [])
     {
-        $query = $this->product->query();
+        // Carrega os produtos com as imagens
+        $query = $this->product->with(['images' => function ($query) {
+            $query->where('index', 0);
+        }]);
 
         $sortFields = request("sort_field", "created_at");
         $sortDirection = request("sort_direction", "desc");
@@ -22,8 +26,12 @@ class ProductService
             $query->where('name', 'like', '%' . $filters['name'] . '%');
         }
 
-        return $products = $query->orderBy($sortFields, $sortDirection)->paginate(5);
+        $products = $query->orderBy($sortFields, $sortDirection)->paginate(5);
+
+        return $products;
     }
+
+
 
     public function create(array $data)
     {
