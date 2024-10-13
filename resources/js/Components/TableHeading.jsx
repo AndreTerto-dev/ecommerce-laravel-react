@@ -18,10 +18,10 @@ export default function TableHeading({
                 {sortable && (
                     <div className="flex flex-col items-center">
                         <ChevronUpIcon
-                            className={`w-4 ${isAscending ? "text-white" : "text-gray-400"}`}
+                            className={`w-4 ${isAscending ? "text-black" : "text-gray-500"}`}
                         />
                         <ChevronDownIcon
-                            className={`w-4 -mt-2 ${isDescending ? "text-white" : "text-gray-400"}`}
+                            className={`w-4 -mt-2 ${isDescending ? "text-black" : "text-gray-500"}`}
                         />
                     </div>
                 )}
