@@ -7,7 +7,7 @@ export default function Show({ auth, category }) {
             user={auth.user}
             header={
                 <div className="flex items-center justify-between">
-                    <h2 className="font-semibold text-xl text-gray-800 leading-tight">
+                    <h2 className="font-semibold text-xl text-gray-950 leading-tight">
                         {`Category "${category.data.name}"`}
                     </h2>
                     <Link
@@ -23,15 +23,15 @@ export default function Show({ auth, category }) {
 
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                    <div className="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                        <div className="p-6 text-gray-900 dark:text-gray-100">
+                    <div className="bg-white/15 overflow-hidden shadow-2xl sm:rounded-lg">
+                        <div className="p-6 text-gray-950">
                             <div className="grid gap-6">
                                 <div>
                                     <div>
                                         <label className="font-bold text-lg">
                                             Category ID
                                         </label>
-                                        <p className="mt-1 text-gray-700 dark:text-gray-300">
+                                        <p className="mt-1 text-gray-950">
                                             {category.data.id}
                                         </p>
                                     </div>
@@ -39,7 +39,7 @@ export default function Show({ auth, category }) {
                                         <label className="font-bold text-lg">
                                             Category Name
                                         </label>
-                                        <p className="mt-1 text-gray-700 dark:text-gray-300">
+                                        <p className="mt-1 text-gray-950">
                                             {category.data.name}
                                         </p>
                                     </div>
@@ -47,7 +47,7 @@ export default function Show({ auth, category }) {
                                         <label className="font-bold text-lg">
                                             Category Description
                                         </label>
-                                        <p className="mt-1 text-gray-700 dark:text-gray-300">
+                                        <p className="mt-1 text-gray-950">
                                             {category.data.description}
                                         </p>
                                     </div>
