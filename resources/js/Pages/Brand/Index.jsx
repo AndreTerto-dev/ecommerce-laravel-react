@@ -66,11 +66,11 @@ export default function Index({ auth, brands, queryParams = null, success }) {
                         {success}
                     </div>
                 )}
-                <div className="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                    <div className="p-6 text-gray-900 dark:text-gray-100">
-                        <div className="overflow-auto">
-                            <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                                <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 border-b-2 border-gray-500">
+                <div className="bg-white/15 overflow-hidden shadow-2xl sm:rounded-lg">
+                    <div className="p-6 text-gray-950">
+                        <div className="overflow-auto sm:rounded-lg">
+                            <table className="w-full text-sm text-left rtl:text-right text-gray-950">
+                                <thead className="text-xs text-gray-950 uppercase bg-white/30 border-b-2 border-white/40">
                                     <tr className="text-nowrap">
                                         <TableHeading
                                             name="id"
@@ -97,7 +97,7 @@ export default function Index({ auth, brands, queryParams = null, success }) {
                                         </th>
                                     </tr>
                                 </thead>
-                                <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 border-b-2 border-gray-500">
+                                <thead className="text-xs text-gray-950 uppercase bg-white/30 border-b-2 border-white/40">
                                     <tr className="text-nowrap">
                                         <th className="px-3 py-3"></th>
                                         <th className="px-3 py-3">
@@ -122,13 +122,13 @@ export default function Index({ auth, brands, queryParams = null, success }) {
                                 <tbody>
                                     {brands.data.map((brand) => (
                                         <tr
-                                            className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+                                            className="bg-transparent border-b border-white/40"
                                             key={brand.id}
                                         >
                                             <td className="px-3 py-2">
                                                 {brand.id}
                                             </td>
-                                            <th className="px-3 py-2 text-gray-100 text-nowrap hover:underline">
+                                            <th className="px-3 py-2 text-gray-950 text-nowrap hover:underline">
                                                 <Link
                                                     href={route(
                                                         "brand.show",
@@ -144,7 +144,7 @@ export default function Index({ auth, brands, queryParams = null, success }) {
                                                         "brand.edit",
                                                         brand.id
                                                     )}
-                                                    className="font-medium text-blue-600 dark:text-blue-500 hover:underline mx-1"
+                                                    className="font-medium text-blue-600 hover:underline mx-1"
                                                 >
                                                     Edit
                                                 </Link>
@@ -152,7 +152,7 @@ export default function Index({ auth, brands, queryParams = null, success }) {
                                                     onClick={() =>
                                                         deleteBrand(brand)
                                                     }
-                                                    className="font-medium text-red-600 dark:text-red-500 hover:underline mx-1"
+                                                    className="font-medium text-red-500 hover:underline mx-1"
                                                 >
                                                     Delete
                                                 </button>
