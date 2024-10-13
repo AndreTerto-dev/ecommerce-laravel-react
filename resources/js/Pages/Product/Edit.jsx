@@ -11,15 +11,22 @@ export default function Edit({ auth, product, categories, brands, teams }) {
         description: product.data.description || "",
         price: product.data.price || "",
         stock_quantity: product.data.stock_quantity || "",
-        category_id: product.data.category_id || "",
-        brand_id: product.data.brand_id || "",
-        team_id: product.data.team_id || "",
+        category_id: product.data.category.id || "",
+        brand_id: product.data.brand ? product.data.brand.id : "",
+        team_id: product.data.team.id || "",
+        images: product.data.images || "",
         _method: "PUT",
     });
 
+    const handleImageChange = (e) => {
+        setData("images", e.target.files);
+    };
+
     const onSubmit = (e) => {
         e.preventDefault();
-        post(route("product.update", product.data.id));
+        post(route("product.update", product.data.id), {
+            forceFormData: true,
+        });
     };
 
     return (
@@ -37,14 +44,14 @@ export default function Edit({ auth, product, categories, brands, teams }) {
 
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                    <div className="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+                    <div className="bg-transparent overflow-hidden shadow-sm sm:rounded-lg">
                         <form
                             onSubmit={onSubmit}
-                            className="p-6 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg"
+                            encType="multipart/form-data"
+                            className="p-6 sm:p-8 bg-white/15 shadow sm:rounded-lg"
                         >
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                {/* Primeira coluna */}
-                                <div>
+                                <div className="space-y-4">
                                     <div>
                                         <InputLabel
                                             htmlFor="product_name"
@@ -67,7 +74,7 @@ export default function Edit({ auth, product, categories, brands, teams }) {
                                         />
                                     </div>
 
-                                    <div className="mt-4">
+                                    <div>
                                         <InputLabel
                                             htmlFor="product_description"
                                             value="Product Description"
@@ -91,7 +98,7 @@ export default function Edit({ auth, product, categories, brands, teams }) {
                                         />
                                     </div>
 
-                                    <div className="mt-4">
+                                    <div>
                                         <InputLabel
                                             htmlFor="price"
                                             value="Price"
@@ -112,7 +119,7 @@ export default function Edit({ auth, product, categories, brands, teams }) {
                                         />
                                     </div>
 
-                                    <div className="mt-4">
+                                    <div>
                                         <InputLabel
                                             htmlFor="product_stock_quantity"
                                             value="Stock Quantity"
@@ -137,9 +144,8 @@ export default function Edit({ auth, product, categories, brands, teams }) {
                                     </div>
                                 </div>
 
-                                {/* Segunda coluna */}
-                                <div>
-                                    <div className="mt-4 md:mt-0">
+                                <div className="space-y-4">
+                                    <div>
                                         <InputLabel
                                             htmlFor="product_category_id"
                                             value="Category"
@@ -156,9 +162,6 @@ export default function Edit({ auth, product, categories, brands, teams }) {
                                                 )
                                             }
                                         >
-                                            <option value="">
-                                                Select Category
-                                            </option>
                                             {categories.data.map((category) => (
                                                 <option
                                                     key={category.id}
@@ -174,7 +177,39 @@ export default function Edit({ auth, product, categories, brands, teams }) {
                                         />
                                     </div>
 
-                                    <div className="mt-4">
+                                    <div>
+                                        <InputLabel
+                                            htmlFor="team_id"
+                                            value="Team"
+                                        />
+                                        <SelectInput
+                                            id="team_id"
+                                            name="team_id"
+                                            value={data.team_id}
+                                            className="mt-1 block w-full"
+                                            onChange={(e) =>
+                                                setData(
+                                                    "team_id",
+                                                    e.target.value
+                                                )
+                                            }
+                                        >
+                                            {teams.data.map((team) => (
+                                                <option
+                                                    key={team.id}
+                                                    value={team.id}
+                                                >
+                                                    {team.name}
+                                                </option>
+                                            ))}
+                                        </SelectInput>
+                                        <InputError
+                                            message={errors.team_id}
+                                            className="mt-2"
+                                        />
+                                    </div>
+
+                                    <div>
                                         <InputLabel
                                             htmlFor="brand_id"
                                             value="Brand"
@@ -192,7 +227,7 @@ export default function Edit({ auth, product, categories, brands, teams }) {
                                             }
                                         >
                                             <option value="">
-                                                Select Brand
+                                                Select a brand
                                             </option>
                                             {brands.data.map((brand) => (
                                                 <option
@@ -209,37 +244,21 @@ export default function Edit({ auth, product, categories, brands, teams }) {
                                         />
                                     </div>
 
-                                    <div className="mt-4">
+                                    <div>
                                         <InputLabel
-                                            htmlFor="team_id"
-                                            value="Team"
+                                            htmlFor="images"
+                                            value="Product Images"
                                         />
-                                        <SelectInput
-                                            id="team_id"
-                                            name="team_id"
-                                            value={data.team_id}
+                                        <input
+                                            id="images"
+                                            type="file"
+                                            name="images"
                                             className="mt-1 block w-full"
-                                            onChange={(e) =>
-                                                setData(
-                                                    "team_id",
-                                                    e.target.value
-                                                )
-                                            }
-                                        >
-                                            <option value="">
-                                                Select Team
-                                            </option>
-                                            {teams.data.map((team) => (
-                                                <option
-                                                    key={team.id}
-                                                    value={team.id}
-                                                >
-                                                    {team.name}
-                                                </option>
-                                            ))}
-                                        </SelectInput>
+                                            onChange={handleImageChange}
+                                            multiple
+                                        />
                                         <InputError
-                                            message={errors.team_id}
+                                            message={errors.images}
                                             className="mt-2"
                                         />
                                     </div>
