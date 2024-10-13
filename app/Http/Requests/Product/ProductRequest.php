@@ -21,6 +21,7 @@ class ProductRequest extends FormRequest
             'brand_id' => 'nullable|exists:brands,id',
             'category_id' => 'required|exists:categories,id',
             'team_id' => 'required|exists:teams,id',
+            'images.*' => 'nullable|image',
         ];
     }
 }
