@@ -18,6 +18,8 @@ class ProductRequest extends FormRequest
             'description' => 'nullable|string|max:200',
             'price' => 'required|numeric|min:0',
             'stock_quantity' => 'nullable|integer|min:0',
+            'launch' => 'nullable|boolean',
+            'discount' => 'nullable|integer|min:0|max:80',
             'brand_id' => 'nullable|exists:brands,id',
             'category_id' => 'required|exists:categories,id',
             'team_id' => 'required|exists:teams,id',
