@@ -1,26 +1,38 @@
-import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
+import User from "@/Layouts/User";
+import Header from "@/Components/User/Header";
+import Shields from "@/Components/User/Shields";
+import Products from "@/Components/User/Products";
 import { Head } from "@inertiajs/react";
 
-export default function Dashboard() {
+export default function Dashboard({ products }) {
     return (
-        <AuthenticatedLayout
-            header={
-                <h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-                    User Dashboard
-                </h2>
-            }
-        >
+        <User>
             <Head title="Dashboard" />
 
-            <div className="py-12">
-                <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                    <div className="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                        <div className="p-6 text-gray-900 dark:text-gray-100">
-                            You're logged in!
-                        </div>
-                    </div>
-                </div>
+            <Header />
+
+            {/* Banner Section */}
+            <div className="relative w-11/12 h-auto mt-9 mx-auto overflow-hidden transition-all duration-700 hover:scale-105">
+                <a
+                    href="/alguma-pagina"
+                    className="block transition-all duration-300"
+                >
+                    <img
+                        src="/assets/banner-one.png"
+                        alt="Banner da Loja de Camisas"
+                        className="w-full h-auto rounded-xl transition-all duration-300"
+                    />
+                </a>
             </div>
-        </AuthenticatedLayout>
+
+            <Shields />
+
+            <Products products={products} />
+
+            {/* Conteúdo do Dashboard */}
+            <div className="dashboard-content mt-8">
+                {/* Adicione seu conteúdo aqui */}
+            </div>
+        </User>
     );
 }
