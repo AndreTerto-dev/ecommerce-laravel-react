@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import ResponsiveNavLink from "@/Components/ResponsiveNavLink";
 import { SidebarData } from "../Data/Data";
 import { UilSignOutAlt } from "@iconscout/react-unicons";
 import Logo from "../../../../public/assets/logo.png";
@@ -56,10 +57,6 @@ const Sidebar = () => {
                             </Link>
                         </div>
                     ))}
-                    <div className="flex items-center gap-2 p-2 rounded-md cursor-pointer hover:bg-blue-50">
-                        <UilSignOutAlt />
-                        <span className="text-gray-700 text-sm">Sair</span>
-                    </div>
                 </div>
             </div>
         </div>

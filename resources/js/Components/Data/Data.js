@@ -7,6 +7,7 @@ import {
     UilLabel,
     UilBookmark,
     UilShield,
+    UilSignOutAlt,
 } from '@iconscout/react-unicons';
 
 export const SidebarData = [
@@ -49,5 +50,10 @@ export const SidebarData = [
         icon: UilChart,
         heading: 'Analytics',
         route: '/admin/analytics',
+    },
+    {
+        icon: UilSignOutAlt,
+        heading: 'Sair',
+        route: '/dashboard',
     },
 ];
