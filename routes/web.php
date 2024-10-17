@@ -10,17 +10,10 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
+    return redirect()->route('dashboard'); // Assumindo que você tenha uma rota nomeada 'dashboard'
 });
 
-Route::get('/dashboard', function () {
-    return Inertia::render('User/Dashboard');
-})->middleware(['auth', 'verified', 'role:customer'])->name('dashboard');
+Route::get('/dashboard', [ProductController::class, 'getProductByLaunch'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
