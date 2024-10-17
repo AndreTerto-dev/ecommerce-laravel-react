@@ -162,4 +162,14 @@ class ProductController extends Controller
             ->with('success', "Product \"$name\" was deleted");
     }
 
+    public function getProductByLaunch()
+    {
+        $query = request("name") ? ['name' => request("name")] : [];
+        $products = $this->productService->getProductByLaunch($query);
+
+        return inertia("User/Dashboard", [
+            "products" => ProductResource::collection($products),
+        ]);
+    }
+
 }
