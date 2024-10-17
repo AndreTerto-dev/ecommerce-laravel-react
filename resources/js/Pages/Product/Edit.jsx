@@ -11,6 +11,8 @@ export default function Edit({ auth, product, categories, brands, teams }) {
         description: product.data.description || "",
         price: product.data.price || "",
         stock_quantity: product.data.stock_quantity || "",
+        launch: product.data.launch || "",
+        discount: product.data.discount || "",
         category_id: product.data.category.id || "",
         brand_id: product.data.brand ? product.data.brand.id : "",
         team_id: product.data.team.id || "",
@@ -142,9 +144,75 @@ export default function Edit({ auth, product, categories, brands, teams }) {
                                             className="mt-2"
                                         />
                                     </div>
+
+                                    <div>
+                                        <InputLabel
+                                            htmlFor="discount"
+                                            value="Discount"
+                                        />
+                                        <TextInput
+                                            id="discount"
+                                            type="number"
+                                            name="discount"
+                                            value={data.discount}
+                                            className="mt-1 block w-full"
+                                            onChange={(e) =>
+                                                setData(
+                                                    "discount",
+                                                    e.target.value
+                                                )
+                                            }
+                                        />
+                                        <InputError
+                                            message={errors.discount}
+                                            className="mt-2"
+                                        />
+                                    </div>
                                 </div>
 
                                 <div className="space-y-4">
+                                    <div>
+                                        <InputLabel
+                                            htmlFor="launch"
+                                            value="Launch"
+                                        />
+
+                                        <div className="mt-3 mb-6">
+                                            <label className="mr-4">
+                                                <input
+                                                    type="radio"
+                                                    name="launch"
+                                                    value="true" // Aqui usamos string 'true'
+                                                    checked={
+                                                        data.launch === true
+                                                    } // Comparando com booleano true
+                                                    onChange={() =>
+                                                        setData("launch", true)
+                                                    } // Garantindo que o valor seja booleano true
+                                                />
+                                                Yes
+                                            </label>
+                                            <label>
+                                                <input
+                                                    type="radio"
+                                                    name="launch"
+                                                    value="false" // Aqui usamos string 'false'
+                                                    checked={
+                                                        data.launch === false
+                                                    } // Comparando com booleano false
+                                                    onChange={() =>
+                                                        setData("launch", false)
+                                                    } // Garantindo que o valor seja booleano false
+                                                />
+                                                No
+                                            </label>
+                                        </div>
+
+                                        <InputError
+                                            message={errors.launch}
+                                            className="mt-2"
+                                        />
+                                    </div>
                                     <div>
                                         <InputLabel
                                             htmlFor="product_category_id"
