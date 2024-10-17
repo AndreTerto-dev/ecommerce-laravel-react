@@ -84,4 +84,18 @@ class ProductService
     {
         return $this->product->where('name', $name)->first();
     }
+
+    public function getProductByLaunch(array $filters = [])
+    {
+        $query = $this->product->with(['images' => function ($query) {
+            $query->where('index', 0);
+        }]);
+
+        $query->where('launch', true);
+
+        $products = $query->get();
+
+        return $products;
+    }
+
 }
