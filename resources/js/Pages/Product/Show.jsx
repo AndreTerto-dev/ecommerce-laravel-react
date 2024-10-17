@@ -25,8 +25,9 @@ export default function Show({ auth, product, images }) {
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div className="bg-white/15 overflow-hidden shadow-2xl sm:rounded-lg">
                         <div className="p-6 text-gray-950">
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                                 <div>
+                                    {/* Div esquerda */}
                                     <div>
                                         <label className="font-bold text-lg">
                                             Product ID
@@ -53,14 +54,15 @@ export default function Show({ auth, product, images }) {
                                     </div>
                                     <div className="mt-4">
                                         <label className="font-bold text-lg">
-                                            Price
+                                            Launch
                                         </label>
                                         <p className="mt-1 text-gray-900">
-                                            ${product.data.price}
+                                            {product.data.launch ? "Yes" : "No"}
                                         </p>
                                     </div>
                                 </div>
 
+                                {/* Div direita */}
                                 <div>
                                     <div>
                                         <label className="font-bold text-lg">
@@ -94,6 +96,43 @@ export default function Show({ auth, product, images }) {
                                             {product.data.brand
                                                 ? product.data.brand.name
                                                 : "No brand available"}
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <div>
+                                        <label className="font-bold text-lg">
+                                            Price
+                                        </label>
+                                        <p className="mt-1 text-gray-900">
+                                            ${product.data.price}
+                                        </p>
+                                    </div>
+                                    <div className="mt-4">
+                                        <label className="font-bold text-lg">
+                                            Discount
+                                        </label>
+                                        <p className="mt-1 text-gray-900">
+                                            {product.data.discount
+                                                ? `${product.data.discount}%`
+                                                : "No discount available"}
+                                        </p>
+                                    </div>
+                                    <div className="mt-4">
+                                        <label className="font-bold text-lg">
+                                            New Price
+                                        </label>
+                                        <p className="mt-1 text-gray-900">
+                                            ${product.data.new_price}
+                                        </p>
+                                    </div>
+                                    <div className="mt-4">
+                                        <label className="font-bold text-lg">
+                                            Installments
+                                        </label>
+                                        <p className="mt-1 text-gray-900">
+                                            12x ${product.data.installments}
                                         </p>
                                     </div>
                                 </div>
