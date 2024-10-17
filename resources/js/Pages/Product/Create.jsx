@@ -29,6 +29,8 @@ export default function Create({ auth, brands, categories, teams }) {
         formData.append("description", data.description);
         formData.append("price", data.price);
         formData.append("stock_quantity", data.stock_quantity);
+        formData.append("discount", data.discount);
+        formData.append("launch", data.launch);
         formData.append("brand_id", data.brand_id);
         formData.append("category_id", data.category_id);
         formData.append("team_id", data.team_id);
@@ -38,6 +40,7 @@ export default function Create({ auth, brands, categories, teams }) {
                 formData.append(`images[${i}]`, data.images[i]);
             }
         }
+
 
         post(route("product.store"), {
             data: formData,
@@ -136,6 +139,29 @@ export default function Create({ auth, brands, categories, teams }) {
                                     </div>
                                     <div>
                                         <InputLabel
+                                            htmlFor="discount"
+                                            value="Discount"
+                                        />
+                                        <TextInput
+                                            id="discount"
+                                            type="number"
+                                            name="discount"
+                                            value={data.discount}
+                                            className="mt-1 block w-full"
+                                            onChange={(e) =>
+                                                setData(
+                                                    "discount",
+                                                    e.target.value
+                                                )
+                                            }
+                                        />
+                                        <InputError
+                                            message={errors.discount}
+                                            className="mt-2"
+                                        />
+                                    </div>
+                                    <div>
+                                        <InputLabel
                                             htmlFor="product_stock"
                                             value="Product Stock"
                                         />
@@ -160,6 +186,49 @@ export default function Create({ auth, brands, categories, teams }) {
                                 </div>
 
                                 <div className="space-y-4">
+                                    <div>
+                                        <InputLabel
+                                            htmlFor="launch"
+                                            value="Launch"
+                                        />
+
+                                        <div className="mt-3 mb-6">
+                                            <label className="mr-4">
+                                                <input
+                                                    type="radio"
+                                                    name="launch"
+                                                    value="true" // Aqui usamos string 'true'
+                                                    checked={
+                                                        data.launch === true
+                                                    } // Comparando com booleano true
+                                                    onChange={() =>
+                                                        setData("launch", true)
+                                                    } // Garantindo que o valor seja booleano true
+                                                />
+                                                Yes
+                                            </label>
+                                            <label>
+                                                <input
+                                                    type="radio"
+                                                    name="launch"
+                                                    value="false" // Aqui usamos string 'false'
+                                                    checked={
+                                                        data.launch === false
+                                                    } // Comparando com booleano false
+                                                    onChange={() =>
+                                                        setData("launch", false)
+                                                    } // Garantindo que o valor seja booleano false
+                                                />
+                                                No
+                                            </label>
+                                        </div>
+
+                                        <InputError
+                                            message={errors.launch}
+                                            className="mt-2"
+                                        />
+                                    </div>
+
                                     <div>
                                         <InputLabel
                                             htmlFor="product_category_id"
