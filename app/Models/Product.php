@@ -16,6 +16,8 @@ class Product extends Model
         'description',
         'price',
         'stock_quantity',
+        'launch',
+        'discount',
         'brand_id',
         'team_id',
         'category_id',
