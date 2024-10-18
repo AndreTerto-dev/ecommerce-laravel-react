@@ -11,8 +11,21 @@ class BrandFactory extends Factory
 
     public function definition()
     {
+        $brands = [
+            'Nike',
+            'Adidas',
+            'Puma',
+            'Umbro',
+            'Kappa',
+            'Under Armour',
+            'Joma',
+            'Le Coq Sportif',
+            'Macron',
+            'New Balance',
+        ];
+
         return [
-            'name' => $this->faker->unique()->company,
+            'name' => $this->faker->unique()->randomElement($brands), // Seleciona uma marca aleatória da lista
             'created_at' => now(),
             'updated_at' => now(),
         ];
