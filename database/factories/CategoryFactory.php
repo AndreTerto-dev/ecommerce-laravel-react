@@ -11,8 +11,21 @@ class CategoryFactory extends Factory
 
     public function definition()
     {
+        $categories = [
+            'Clubes',
+            'Seleções',
+            'Retrô',
+            'Edição Especial',
+            'Infantil',
+            'Feminino',
+            'Treino',
+            'Goleiro',
+            'Casual',
+            'Colecionador',
+        ];
+
         return [
-            'name' => $this->faker->word(),
+            'name' => $this->faker->unique()->randomElement($categories),
             'description' => $this->faker->sentence(),
             'created_at' => now(),
             'updated_at' => now(),
