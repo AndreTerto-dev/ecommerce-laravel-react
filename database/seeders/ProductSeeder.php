@@ -9,10 +9,12 @@ class ProductSeeder extends Seeder
 {
     public function run()
     {
-        Product::factory()->count(30)->create([
-            'brand_id' => rand(1, 30),  
-            'category_id' => rand(1, 30),
-            'team_id' => rand(1, 30),    
-        ]);
+        for ($i = 0; $i < 10; $i++) {
+            Product::factory()->create([
+                'brand_id' => rand(1, 10),
+                'category_id' => rand(1, 10),
+                'team_id' => rand(1, 20),
+            ]);
+        }
     }
 }

@@ -14,14 +14,29 @@ class ProductFactory extends Factory
 
     public function definition()
     {
+        $productNames = [
+            'Camisa Home',
+            'Camisa Away',
+            'Agasalho',
+            'Jaqueta de Treino',
+            'Camisa Retrô',
+            'Camiseta de Torcedor',
+            'Uniforme de Goleiro',
+            'Camisa Infantil',
+            'Camisa Feminina',
+            'Conjunto de Treino',
+        ];
+
         return [
-            'name' => $this->faker->word(),
+            'name' => $this->faker->unique()->randomElement($productNames),
             'description' => $this->faker->sentence(),
-            'price' => $this->faker->randomFloat(2, 10, 1000), 
-            'stock_quantity' => $this->faker->randomNumber(),
-            'brand_id' => Brand::query()->inRandomOrder()->first()->id,  
-            'category_id' => Category::query()->inRandomOrder()->first()->id, 
-            'team_id' => Team::query()->inRandomOrder()->first()->id,  
+            'price' => $this->faker->randomFloat(2, 100, 1000),
+            'stock_quantity' => $this->faker->numberBetween(1, 100),
+            'discount' => $this->faker->numberBetween(10, 80),
+            'launch' => false,
+            'brand_id' => Brand::pluck('id')->random(),
+            'category_id' => Category::pluck('id')->random(),
+            'team_id' => Team::pluck('id')->random(),
             'created_at' => now(),
             'updated_at' => now(),
         ];
