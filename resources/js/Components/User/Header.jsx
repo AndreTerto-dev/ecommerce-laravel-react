@@ -238,14 +238,16 @@ export default function Header() {
                             </PrimaryButton>
                         </form>
                         <div className="mt-12 text-center">
-                    <span className="text-black/80">Novo cliente? </span>
-                    <Link
-                        href={route("register")}
-                        className="text-[#007bff]"
-                    >
-                        Criar sua conta
-                    </Link>
-                </div>
+                            <span className="text-black/80">
+                                Novo cliente?{" "}
+                            </span>
+                            <Link
+                                href={route("register")}
+                                className="text-[#007bff]"
+                            >
+                                Criar sua conta
+                            </Link>
+                        </div>
                         <div className="mt-2 text-center">
                             <span className="text-black/80">
                                 Esqueceu sua senha?{" "}
@@ -327,6 +329,16 @@ export default function Header() {
                                 LISTA DE DESEJOS
                             </a>
                         </li>
+                        {auth.user && auth.user.role === "admin" ? (
+                            <li>
+                                <a
+                                    href="/admin/dashboard"
+                                    className="hover:bg-gray-600 px-4 py-2 rounded transition duration-300"
+                                >
+                                    PAINEL ADMINISTRADOR
+                                </a>
+                            </li>
+                        ) : null}
                     </ul>
                 </nav>
             </header>
