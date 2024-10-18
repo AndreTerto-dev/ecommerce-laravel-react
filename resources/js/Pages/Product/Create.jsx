@@ -11,6 +11,8 @@ export default function Create({ auth, brands, categories, teams }) {
         description: "",
         price: "",
         stock_quantity: "",
+        discount: "",
+        launch: false,
         brand_id: "",
         category_id: "",
         team_id: "",

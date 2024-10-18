@@ -155,7 +155,6 @@ export default function Index({
                                             <td className="px-3 py-2">
                                                 <img
                                                     src={product.image_path}
-                                                    alt={product.name}
                                                     style={{ width: 57 }}
                                                 />
                                             </td>

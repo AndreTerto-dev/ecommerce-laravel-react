@@ -17,7 +17,7 @@ return new class extends Migration
             $table->longText('description')->nullable();
             $table->double('price');
             $table->integer('stock_quantity')->nullable();
-            $table->boolean('launch')->nullable();
+            $table->boolean('launch');
             $table->integer('discount')->nullable();
             $table->foreignId('brand_id')->nullable()->constrained('brands');
             $table->foreignId('category_id')->constrained('categories');
