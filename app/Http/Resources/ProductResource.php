@@ -20,8 +20,6 @@ class ProductResource extends JsonResource
 
         $installments = $newPrice / 12;
 
-        $productName = str_replace('/', '-', $this->name);
-
         return [
             'id' => $this->id,
             'name' => $this->name,
@@ -30,7 +28,7 @@ class ProductResource extends JsonResource
             'discount' => $this->discount,
             'new_price' => number_format($newPrice, 2),
             'installments' => number_format($installments, 2),
-            'url' => Str::slug($productName),
+            'slug' => $this->slug,
             'stock_quantity' => $this->stock_quantity,
             'launch' => $this->launch,
             'brand' => new BrandResource($this->brand),
