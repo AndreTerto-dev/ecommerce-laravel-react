@@ -57,11 +57,23 @@ class ProductController extends Controller
 
         $images = $data['images'] ?? null;
 
+        // Substitui barras por hífens no nome do produto
+        $productNameSanitized = str_replace('/', '-', $data['name']);
+
+        // Gera o slug a partir do nome sanitizado (sem barras)
+        $data['slug'] = Str::slug($productNameSanitized);
+
+        // Verifica se há imagens
+        $images = $data['images'] ?? null;
+
+        // Cria o produto com os dados incluindo o slug
         $product = Product::create($data);
 
+        // Se houver imagens, faz o upload e cria as associações com o produto
         if ($images) {
             foreach ($images as $id => $image) {
-                $productNameSlug = Str::slug($data['name']);
+                // Gera um nome de pasta para armazenar as imagens com base no slug do produto
+                $productNameSlug = $data['slug'];
 
                 $randomString = Str::random(40);
                 $imageName = $randomString . '.' . $image->getClientOriginalExtension();
@@ -169,6 +181,23 @@ class ProductController extends Controller
 
         return inertia("User/Dashboard", [
             "products" => ProductResource::collection($products),
+        ]);
+    }
+
+    public function getProduct($slug)
+    {
+        // Supondo que você tenha um método em ProductService para obter o produto pelo slug ou URL
+        $product = $this->productService->getProductBySlug($slug); // Modifique conforme sua lógica de busca
+
+        $images = ProductImage::where('product_id', $product->id)
+        ->pluck('image_path')
+        ->map(function ($imagePath) {
+            return Storage::url($imagePath);
+        });
+
+        return inertia("User/Product", [
+            "product" => new ProductResource($product), // Retorna um único produto
+            'images' => $images,
         ]);
     }
 
