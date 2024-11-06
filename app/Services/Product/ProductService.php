@@ -98,4 +98,9 @@ class ProductService
         return $products;
     }
 
+    public function getProductBySlug($slug)
+    {
+        return Product::where('slug', $slug)->firstOrFail(); // Altere 'slug' para o campo que você está usando para o URL
+    }
+
 }
