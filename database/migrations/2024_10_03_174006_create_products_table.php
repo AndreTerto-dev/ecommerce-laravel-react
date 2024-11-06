@@ -18,6 +18,7 @@ return new class extends Migration
             $table->double('price');
             $table->integer('stock_quantity')->nullable();
             $table->boolean('launch');
+            $table->string('slug')->nullable();
             $table->integer('discount')->nullable();
             $table->foreignId('brand_id')->nullable()->constrained('brands');
             $table->foreignId('category_id')->constrained('categories');
