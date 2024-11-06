@@ -8,6 +8,7 @@ import { Head, Link, useForm } from "@inertiajs/react";
 export default function Create({ auth, brands, categories, teams }) {
     const { data, setData, post, errors } = useForm({
         name: "",
+        slug: "",
         description: "",
         price: "",
         stock_quantity: "",
@@ -28,6 +29,7 @@ export default function Create({ auth, brands, categories, teams }) {
 
         const formData = new FormData();
         formData.append("name", data.name);
+        formData.append("slug", data.slug);
         formData.append("description", data.description);
         formData.append("price", data.price);
         formData.append("stock_quantity", data.stock_quantity);
