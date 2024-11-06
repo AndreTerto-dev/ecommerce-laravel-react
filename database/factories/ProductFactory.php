@@ -7,6 +7,7 @@ use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Team;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
 
 class ProductFactory extends Factory
 {
@@ -27,8 +28,11 @@ class ProductFactory extends Factory
             'Conjunto de Treino',
         ];
 
+        $name = $this->faker->unique()->randomElement($productNames);
+
         return [
-            'name' => $this->faker->unique()->randomElement($productNames),
+            'name' => $name,
+            'slug' => Str::slug($name),
             'description' => $this->faker->sentence(),
             'price' => $this->faker->randomFloat(2, 100, 1000),
             'stock_quantity' => $this->faker->numberBetween(1, 100),
