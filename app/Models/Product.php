@@ -18,6 +18,7 @@ class Product extends Model
         'stock_quantity',
         'launch',
         'discount',
+        'slug',
         'brand_id',
         'team_id',
         'category_id',
