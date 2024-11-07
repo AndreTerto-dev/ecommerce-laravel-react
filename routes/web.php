@@ -15,6 +15,9 @@ Route::get('/', function () {
 
 Route::get('/dashboard', [ProductController::class, 'getProductByLaunch'])->name('dashboard');
 
+Route::get('products/{slug}', [ProductController::class, 'getProduct'])
+    ->name('product.page');
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
