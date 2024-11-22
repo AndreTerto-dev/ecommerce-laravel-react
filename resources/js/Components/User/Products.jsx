@@ -24,7 +24,7 @@ export default function Products({ products }) {
                                 {product.discount}% OFF
                             </span>
 
-                            <a href={`/products/${product.url}`}>
+                            <a href={`/products/${product.slug}`}>
                                 <img
                                     src={product.image_path}
                                     alt={product.name}
@@ -32,7 +32,7 @@ export default function Products({ products }) {
                                 />
                             </a>
 
-                            <a href={`/products/${product.url}`}>
+                            <a href={`/products/${product.slug}`}>
                                 <h3 className="text-gray-700 font-bold">
                                     {product.name}
                                 </h3>
