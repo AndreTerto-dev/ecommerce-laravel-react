@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BrandController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
@@ -10,13 +11,18 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 Route::get('/', function () {
-    return redirect()->route('dashboard'); // Assumindo que você tenha uma rota nomeada 'dashboard'
+    return redirect()->route('dashboard');
 });
 
 Route::get('/dashboard', [ProductController::class, 'getProductByLaunch'])->name('dashboard');
 
 Route::get('products/{slug}', [ProductController::class, 'getProduct'])
     ->name('product.page');
+
+Route::post('/cart/add', [CartController::class, 'addItem'])->name('cart.add');
+Route::delete('/cart/remove/{itemId}', [CartController::class, 'removeItem'])->name('cart.remove');
+Route::get('/cart', [CartController::class, 'showCart'])->name('cart.show');
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -62,4 +68,3 @@ Route::prefix('vendor')->middleware(['auth', 'verified', 'role:vendor'])->group(
         return Inertia::render('Vendor/Dashboard');
     })->name('vendor.dashboard');
 });
-
