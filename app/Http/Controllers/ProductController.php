@@ -79,15 +79,21 @@ class ProductController extends Controller
                 $imageName = $randomString . '.' . $image->getClientOriginalExtension();
                 $imagePath = $image->storeAs('products/' . $productNameSlug, $imageName, 'public');
 
-
+                // Cria a imagem do produto no banco de dados
                 ProductImage::create([
                     'product_id' => $product->id,
                     'image_path' => $imagePath,
                     'index' => $id,
                 ]);
 
+                // Atualiza o campo image_path do produto com a primeira imagem
+                if ($id === 0) {
+                    $product->image_path = $imagePath;
+                    $product->save();
+                }
             }
         }
+
 
         return to_route('product.index')
         ->with('success', 'Product was created successfully');
