@@ -1,11 +1,17 @@
 import User from "@/Layouts/User";
 import Header from "@/Components/User/Header";
-import { Head } from "@inertiajs/react";
+import { Head, Link, useForm } from "@inertiajs/react";
 import { useState } from "react";
 
 const Product = ({ product, images }) => {
     // Estado para gerenciar a imagem principal que será exibida em destaque
     const [selectedImage, setSelectedImage] = useState(images[0]);
+
+    const { post } = useForm();
+
+    const handleAdd = (productId) => {
+        post(route("cart.add"), { product_id: productId, quantity: 1 });
+    };
 
     return (
         <User>
@@ -14,7 +20,7 @@ const Product = ({ product, images }) => {
             <Header />
 
             {/* Layout do produto com galeria lateral e detalhes */}
-            <div className="flex flex-row space-x-12 mt-12 mx-40 max-w-7xl justify-center">
+            <div className="flex flex-row space-x-12 mt-12 mx-40 max-w-7xl justify-center bg-gray-50">
                 {/* Div para miniaturas e imagem principal */}
                 <div className="flex flex-row space-x-4 overflow-visible rounded-lg shadow-lg p-3">
                     {/* Galeria de miniaturas à esquerda */}
@@ -106,6 +112,23 @@ const Product = ({ product, images }) => {
                             <button className="px-4 py-2 border rounded-lg">
                                 Com Personalização
                             </button>
+                        </div>
+                        <div>
+                            {/* Substituindo o botão por InertiaLink */}
+                            <Link
+                                href={route("cart.add")}
+                                method="post"
+                                data={{
+                                    product_id: product.data.id,
+                                    quantity: 1,
+                                }}
+                                as="button"
+                                type="button" // Usando type="button" para evitar o envio de um formulário
+                            >
+                                <button className="px-12 py-3 border rounded-lg bg-[#017bff] text-white text-lg font-extrabold">
+                                    COMPRAR AGORA
+                                </button>
+                            </Link>
                         </div>
                     </div>
                 </div>
