@@ -35,6 +35,7 @@ class ProductRequest extends FormRequest
             'category_id' => 'required|exists:categories,id',
             'team_id' => 'required|exists:teams,id',
             'images.*' => 'nullable|image',
+            'image_path' => 'nullable|string|max:255',
         ];
     }
 }
