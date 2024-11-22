@@ -16,13 +16,18 @@ return new class extends Migration
             $table->string('name');
             $table->longText('description')->nullable();
             $table->double('price');
+            $table->double('new_price')->nullable();
+            $table->integer('installment_count')->nullable();
+            $table->double('installment_value')->nullable();
             $table->integer('stock_quantity')->nullable();
             $table->boolean('launch');
             $table->string('slug')->nullable();
             $table->integer('discount')->nullable();
+            $table->string('image_path')->nullable();
             $table->foreignId('brand_id')->nullable()->constrained('brands');
             $table->foreignId('category_id')->constrained('categories');
             $table->foreignId('team_id')->constrained('teams');
+
             $table->timestamps();
         });
     }
