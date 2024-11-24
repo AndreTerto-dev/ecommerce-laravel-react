@@ -83,13 +83,22 @@ const Product = ({ product, images }) => {
                             {product.data.description}
                         </p>
                         <p className="text-lg text-red-500 line-through">
-                            R$ {product.data.price}
+                            R${" "}
+                            {Number(product.data.price)
+                                .toFixed(2)
+                                .replace(".", ",")}
                         </p>
-                        <p className="text-green-600 font-bold text-3xl">
-                            R$ {product.data.new_price}
+                        <p className="text-green-500 font-bold text-3xl">
+                            R${" "}
+                            {Number(product.data.new_price)
+                                .toFixed(2)
+                                .replace(".", ",")}
                         </p>
                         <p className="text-gray-500">
-                            ou 12x de R$ {product.data.installments}
+                            ou 12x de R${" "}
+                            {Number(product.data.installments)
+                                .toFixed(2)
+                                .replace(".", ",")}
                         </p>
 
                         {/* Exemplos de tamanhos */}
@@ -113,7 +122,7 @@ const Product = ({ product, images }) => {
                                 Com Personalização
                             </button>
                         </div>
-                        <div>
+                        <div className="flex justify-start gap-4">
                             {/* Substituindo o botão por InertiaLink */}
                             <Link
                                 href={route("cart.add")}
@@ -127,6 +136,20 @@ const Product = ({ product, images }) => {
                             >
                                 <button className="px-12 py-3 border rounded-lg bg-[#017bff] text-white text-lg font-extrabold">
                                     COMPRAR AGORA
+                                </button>
+                            </Link>
+                            {/* Substituindo o botão por InertiaLink */}
+                            <Link
+                                href={route("wishlist.add")}
+                                method="post"
+                                data={{
+                                    product_id: product.data.id,
+                                }}
+                                as="button"
+                                type="button" // Usando type="button" para evitar o envio de um formulário
+                            >
+                                <button className="px-4 py-3 border rounded-lg bg-black text-white text-sm font-extrabold">
+                                    ADICIONAR A LISTA DE DESEJOS
                                 </button>
                             </Link>
                         </div>
