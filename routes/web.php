@@ -6,6 +6,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TeamController;
+use App\Http\Controllers\WishlistController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -23,6 +24,9 @@ Route::post('/cart/add', [CartController::class, 'addItem'])->name('cart.add');
 Route::delete('/cart/remove/{itemId}', [CartController::class, 'removeItem'])->name('cart.remove');
 Route::get('/cart', [CartController::class, 'showCart'])->name('cart.show');
 
+Route::post('/wishlist/add', [WishlistController::class, 'addItem'])->name('wishlist.add');
+Route::delete('/wishlist/remove/{itemId}', [WishlistController::class, 'removeItem'])->name('wishlist.remove');
+Route::get('/wishlist', [WishlistController::class, 'showWishlist'])->name('wishlist.show');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
