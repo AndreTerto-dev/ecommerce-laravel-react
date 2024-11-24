@@ -32,24 +32,21 @@ export default function Header() {
             <div className="flex justify-between items-center bg-[#017bff] text-white p-1 px-12 h-7">
                 <div className="flex items-center">
                     <img
-                        src="assets/header/cubo.png"
-                        alt="Promoção 1"
+                        src="/assets/header/cubo.png"
                         className="w-7 h-7 mr-1"
                     />
                     <span className="font-bold">Compre 2 leve 3!</span>
                 </div>
                 <div className="flex items-center">
                     <img
-                        src="assets/header/frete.png"
-                        alt="Promoção 2"
+                        src="/assets/header/frete.png"
                         className="w-8 h-9 mr-1"
                     />
                     <span className="font-bold">Semana de Frete Grátis!</span>
                 </div>
                 <div className="flex items-center">
                     <img
-                        src="assets/header/coracao.png"
-                        alt="Promoção 3"
+                        src="/assets/header/coracao.png"
                         className="w-6 h-6 mr-1"
                     />
                     <span className="font-bold">Lançamentos disponíveis!</span>
@@ -323,11 +320,12 @@ export default function Header() {
                         </li>
                         <li>
                             <a
-                                href="#desejos"
+                                href="/wishlist"
                                 className="hover:bg-gray-600 px-4 py-2 rounded transition duration-300"
                             >
                                 LISTA DE DESEJOS
                             </a>
+                            
                         </li>
                         {auth.user && auth.user.role === "admin" ? (
                             <li>
