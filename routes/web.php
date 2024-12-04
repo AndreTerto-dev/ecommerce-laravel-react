@@ -42,10 +42,11 @@ Route::middleware('auth')->group(function () {
 
 Route::get('/checkout', [OrderController::class, 'checkout'])->name('checkout.show');
 
-
 Route::post('/process_payment', [OrderController::class, 'store'])->name('order.store');
 
-
+Route::get('/guia-medidas', function () {
+    return Inertia::render('GuiaMedidas/Show');
+});
 
 require __DIR__.'/auth.php';
 
