@@ -1,0 +1,23 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class ShippingDetail extends Model
+{
+    use HasFactory;
+
+    protected $table = 'shipping_details';
+
+    protected $guarded = [];
+
+    /**
+     * Define o relacionamento com o modelo Order.
+     */
+    public function order()
+    {
+        return $this->belongsTo(Order::class);
+    }
+}
