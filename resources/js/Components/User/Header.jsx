@@ -312,7 +312,7 @@ export default function Header() {
                         </li>
                         <li>
                             <a
-                                href="#guia"
+                                href="/guia-medidas"
                                 className="hover:bg-gray-600 px-4 py-2 rounded transition duration-300"
                             >
                                 GUIA DE MEDIDAS
