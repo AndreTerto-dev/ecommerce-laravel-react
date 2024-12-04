@@ -85,7 +85,7 @@ export default function Show({ cart }) {
                                                                     .description
                                                             }
                                                         </p>
-                                                        <p className="text-red-500 font-bold">
+                                                        <p className="text-[#017bff] font-bold">
                                                             R${" "}
                                                             {item.product
                                                                 .new_price ??
@@ -163,7 +163,7 @@ export default function Show({ cart }) {
                                 <div className="mt-12">
                                     <Link
                                         href="/checkout"
-                                        className="px-16 py-3 text-xl border-2 border-red-600 font-black bg-red-600 text-white rounded-lg hover:bg-red-700"
+                                        className="px-16 py-3 text-xl border-2 border-[#017bff] font-black bg-[#017bff] text-white rounded-lg hover:bg-[#0164d9] hover:border-[#0164d9]"
                                     >
                                         Finalizar Compra
                                     </Link>
