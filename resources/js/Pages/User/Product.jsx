@@ -7,11 +7,6 @@ const Product = ({ product, images }) => {
     // Estado para gerenciar a imagem principal que será exibida em destaque
     const [selectedImage, setSelectedImage] = useState(images[0]);
 
-    const { post } = useForm();
-
-    const handleAdd = (productId) => {
-        post(route("cart.add"), { product_id: productId, quantity: 1 });
-    };
 
     return (
         <User>
@@ -125,7 +120,7 @@ const Product = ({ product, images }) => {
                         <div className="flex justify-start gap-4">
                             {/* Substituindo o botão por InertiaLink */}
                             <Link
-                                href={route("cart.add")}
+                                href={route("cart.add.item")}
                                 method="post"
                                 data={{
                                     product_id: product.data.id,
