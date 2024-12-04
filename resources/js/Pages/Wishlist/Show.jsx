@@ -46,14 +46,14 @@ export default function Show({ wishlist, success }) {
                                     key={item.product.id}
                                     className="border rounded-lg p-4 shadow-sm hover:shadow-2xl transition-shadow duration-300 relative"
                                 >
-                                    <span className="text-white bg-[#017bff] py-1 px-2 rounded-lg text-sm font-semibold absolute -mt-8">
+                                    <span className="text-white bg-[#017bff] py-1 px-2 rounded-lg text-sm font-semibold absolute">
                                         {item.product.discount}% OFF
                                     </span>
                                     <button
                                         onClick={() =>
                                             handleRemove(item.product.id)
                                         }
-                                        className="text-white bg-black hover:bg-red-600 py-1 px-2 rounded-lg text-sm font-semibold absolute -mt-8 ml-52"
+                                        className="text-white bg-black hover:bg-red-600 py-1 px-2 rounded-lg text-sm font-semibold absolute ml-52"
                                     >
                                         X
                                     </button>

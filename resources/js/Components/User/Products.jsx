@@ -3,7 +3,6 @@ import { Navigation, Pagination, Scrollbar, A11y } from "swiper/modules";
 import "swiper/swiper-bundle.css";
 
 export default function Products({ products }) {
-    
     return (
         <div className="w-11/12 mx-auto mt-12">
             <h2 className="text-xl font-bold text-gray-800 border-b-2 border-[#017bff] inline p-1">
@@ -20,7 +19,7 @@ export default function Products({ products }) {
                 {products.data.map((product) => (
                     <SwiperSlide key={product.id}>
                         <div className="border rounded-lg p-4 mt-4 shadow-sm hover:shadow-2xl transition-shadow duration-300 mb-12 relative">
-                            <span className="text-white bg-[#017bff] py-1 px-2 rounded-lg text-sm font-semibold absolute -mt-8">
+                            <span className="text-white bg-[#017bff] py-1 px-2 rounded-lg text-sm font-semibold absolute -mt-2">
                                 {product.discount}% OFF
                             </span>
 
@@ -39,13 +38,22 @@ export default function Products({ products }) {
                             </a>
 
                             <p className="text-sm text-red-500 line-through">
-                                R$ {product.price}
+                                R${" "}
+                                {Number(product.price)
+                                    .toFixed(2)
+                                    .replace(".", ",")}
                             </p>
                             <p className="text-green-600 font-bold text-lg">
-                                R$ {product.new_price}
+                                R${" "}
+                                {Number(product.new_price)
+                                    .toFixed(2)
+                                    .replace(".", ",")}
                             </p>
                             <p className="text-sm text-gray-500">
-                                ou 12x de R$ {product.installments}
+                                ou 12x de R${" "}
+                                {Number(product.installments)
+                                    .toFixed(2)
+                                    .replace(".", ",")}
                             </p>
                             <p className="text-xs text-gray-400 mt-2">
                                 +1453 unidades vendidas
