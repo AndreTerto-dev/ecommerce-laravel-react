@@ -63,12 +63,8 @@ class CartController extends Controller
 
         // Retorne o carrinho completo para o frontend
         $cart = Auth::check() ? new ShoppingCartResource($cart) : session()->get('cart.items');
-
-        return to_route('cart.show')
-        ->with('success', 'Produto adicionado com sucesso');
     }
-
-
+    
 
     // Remover item do carrinho
     public function removeItem($itemId)
@@ -106,9 +102,6 @@ class CartController extends Controller
                 session()->put('cart.items', $cartItems);
             }
         }
-
-        // Após a remoção, redireciona de volta para o carrinho
-        return redirect()->route('cart.show')->with('message', '1 unidade do item removida do carrinho');
     }
 
 
@@ -156,6 +149,57 @@ class CartController extends Controller
         return inertia('Cart/Show', ['cart' => $cart]);
     }
 
+    public function addItemCart(CartItemRequest $request)
+    {
 
+        $product = Product::find($request->product_id);
+
+        if (!$product) {
+            return back()->with('error', 'Product not found');
+        }
+
+        // Se o usuário estiver autenticado, associe o item ao carrinho do usuário
+        if (Auth::check()) {
+            $cart = ShoppingCart::firstOrCreate(['user_id' => Auth::id()]);
+            $cartItem = CartItem::where('product_id', $product->id)->first();
+
+            if ($cartItem) {
+                $cartItem->increment('quantity', $request->quantity);
+            } else {
+                CartItem::create([
+                    'product_id' => $product->id,
+                    'quantity' => $request->quantity,
+                    'shopping_cart_id' => $cart->id, // Define o shopping_cart_id
+                    'product' => $product,
+                ]);
+            }
+        } else {
+            // Usuário não autenticado: use a sessão para armazenar o item
+            $cartItems = session()->get('cart.items', []);
+
+            // Verifique se o item já está no carrinho da sessão
+            if (isset($cartItems[$product->id])) {
+                $cartItems[$product->id]['quantity'] += $request->quantity;
+            } else {
+                $cartItems[$product->id] = [
+                    'product_id' => $product->id,
+                    'quantity' => $request->quantity,
+                ];
+            }
+
+            // Atualize o carrinho na sessão
+            session()->put('cart.items', $cartItems);
+
+            // Calcula a quantidade total de itens no carrinho da sessão
+            $totalQuantity = array_sum(array_column($cartItems, 'quantity'));
+        }
+
+        // Retorne o carrinho completo para o frontend
+        $cart = Auth::check() ? new ShoppingCartResource($cart) : session()->get('cart.items');
+
+        return to_route('cart.show');
+    }
+
+    
 
 }
