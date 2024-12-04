@@ -165,7 +165,7 @@ export default function Header() {
                                 />
                             </a>
                             <a
-                                href="#carrinho"
+                                href="/cart"
                                 className="text-white font-bold text-base flex flex-col items-center"
                             >
                                 <span>Carrinho</span>
