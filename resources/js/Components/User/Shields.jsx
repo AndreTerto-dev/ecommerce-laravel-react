@@ -34,84 +34,84 @@ export default function Shields() {
 
 const teams = [
     {
-        src: "/assets/escudos/corinthians.png",
+        src: "/assets/escudos/brasileiros/corinthians.png",
         alt: "Corinthians",
         link: "/corinthians",
     },
     {
-        src: "/assets/escudos/sao-paulo.png",
+        src: "/assets/escudos/brasileiros/sao-paulo.png",
         alt: "São Paulo",
         link: "/sao-paulo",
     },
     {
-        src: "/assets/escudos/flamengo.png",
+        src: "/assets/escudos/brasileiros/flamengo.png",
         alt: "Flamengo",
         link: "/flamengo",
     },
     {
-        src: "/assets/escudos/palmeiras.png",
+        src: "/assets/escudos/brasileiros/palmeiras.png",
         alt: "Palmeiras",
         link: "/palmeiras",
     },
-    { src: "/assets/escudos/vasco.png", alt: "Vasco", link: "/vasco" },
     {
-        src: "/assets/escudos/atletico-mineiro.png",
+        src: "/assets/escudos/brasileiros/vasco.png",
+        alt: "Vasco",
+        link: "/vasco",
+    },
+    {
+        src: "/assets/escudos/brasileiros/atletico-mineiro.png",
         alt: "Atlético Mineiro",
         link: "/atletico-mineiro",
     },
     {
-        src: "/assets/escudos/atletico-paranaense.png",
+        src: "/assets/escudos/brasileiros/atletico-paranaense.png",
         alt: "Atlético Paranaense",
         link: "/atletico-paranaense",
     },
     {
-        src: "/assets/escudos/bahia.png",
+        src: "/assets/escudos/brasileiros/bahia.png",
         alt: "Bahia",
         link: "/bahia",
     },
     {
-        src: "/assets/escudos/botafogo.png",
+        src: "/assets/escudos/brasileiros/botafogo.png",
         alt: "Botafogo",
         link: "/botafogo",
     },
     {
-        src: "/assets/escudos/bragantino.png",
+        src: "/assets/escudos/brasileiros/bragantino.png",
         alt: "Bragantino",
         link: "/bragantino",
     },
     {
-        src: "/assets/escudos/cruzeiro.png",
+        src: "/assets/escudos/brasileiros/cruzeiro.png",
         alt: "Cruzeiro",
         link: "/cruzeiro",
     },
     {
-        src: "/assets/escudos/fluminense.png",
+        src: "/assets/escudos/brasileiros/fluminense.png",
         alt: "Fluminense",
         link: "/fluminense",
     },
     {
-        src: "/assets/escudos/fortaleza.png",
+        src: "/assets/escudos/brasileiros/fortaleza.png",
         alt: "Fortaleza",
         link: "/fortaleza",
     },
     {
-        src: "/assets/escudos/gremio.png",
+        src: "/assets/escudos/brasileiros/gremio.png",
         alt: "Grêmio",
         link: "/gremio",
     },
     {
-        src: "/assets/escudos/internacional.png",
+        src: "/assets/escudos/brasileiros/internacional.png",
         alt: "Internacional",
         link: "/internacional",
     },
     {
-        src: "/assets/escudos/palmeiras.png",
-        alt: "Palmeiras",
-        link: "/palmeiras",
-    },
-    {
-        src: "/assets/escudos/santos.png",
+        src: "/assets/escudos/brasileiros/santos.png",
         alt: "Santos",
         link: "/santos",
     },
 ];
+
