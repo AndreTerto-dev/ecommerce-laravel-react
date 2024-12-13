@@ -54,7 +54,7 @@ export default function Header() {
             </div>
 
             {/* Header */}
-            <header className="flex flex-col p-4 h-32 bg-gradient-to-b from-[#0a0f14] to-[#262b2e] shadow-md w-full border-b-4 border-blue-500">
+            <header className="flex flex-col p-4 h-32 bg-gradient-to-b from-[#0a0f14] to-[#262b2e] shadow-md w-full border-b-4 border-[#017bff]">
                 <div className="flex items-start justify-center gap-16 ml-10 mt-2">
                     <div className="flex items-center -ml-20 -mt-1">
                         <img
