@@ -2,6 +2,7 @@ import User from "@/Layouts/User";
 import Header from "@/Components/User/Header";
 import { Head, Link, useForm } from "@inertiajs/react";
 import { useState } from "react";
+import Footer from "@/Components/User/Footer";
 
 const Product = ({ product, images }) => {
     // Estado para gerenciar a imagem principal que será exibida em destaque
@@ -151,6 +152,7 @@ const Product = ({ product, images }) => {
                     </div>
                 </div>
             </div>
+            <Footer />
         </User>
     );
 };

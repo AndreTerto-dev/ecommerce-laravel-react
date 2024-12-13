@@ -1,6 +1,7 @@
 import React from "react";
 import { Link, useForm, router } from "@inertiajs/react";
 import Header from "@/Components/User/Header";
+import Footer from "@/Components/User/Footer";
 
 export default function Show() {
     return (
@@ -84,6 +85,7 @@ export default function Show() {
                     Considerem margem de erro de 1-3 cm em cada medida.
                 </p>
             </div>
+            <Footer />
         </div>
     );
 }

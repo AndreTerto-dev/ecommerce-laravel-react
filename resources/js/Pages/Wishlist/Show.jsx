@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useForm, router } from "@inertiajs/react";
 import Header from "@/Components/User/Header";
+import Footer from "@/Components/User/Footer";
 
 export default function Show({ wishlist, success }) {
     const { delete: deleteItem, post } = useForm();
@@ -115,6 +116,7 @@ export default function Show({ wishlist, success }) {
                     )}
                 </div>
             </div>
+            <Footer />
         </div>
     );
 }

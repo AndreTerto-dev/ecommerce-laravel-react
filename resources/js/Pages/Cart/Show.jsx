@@ -1,6 +1,7 @@
 import React from "react";
 import { Link, useForm, router } from "@inertiajs/react";
 import Header from "@/Components/User/Header";
+import Footer from "@/Components/User/Footer";
 
 export default function Show({ cart }) {
     const { delete: deleteItem, post } = useForm();
@@ -32,7 +33,7 @@ export default function Show({ cart }) {
     return (
         <div className="bg-gray-50">
             <Header />
-            <div className="p-8">
+            <div className="p-8 mb-12">
                 <h1 className="text-3xl font-bold text-start mb-8 text-gray-800 ml-4">
                     Meu Carrinho
                 </h1>
@@ -184,6 +185,7 @@ export default function Show({ cart }) {
                     )}
                 </div>
             </div>
+            <Footer />
         </div>
     );
 }
