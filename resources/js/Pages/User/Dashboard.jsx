@@ -2,6 +2,7 @@ import User from "@/Layouts/User";
 import Header from "@/Components/User/Header";
 import Shields from "@/Components/User/Shields";
 import ShieldsTwo from "@/Components/User/ShieldsTwo";
+import Features from "@/Components/User/FeaturesSection";
 import Products from "@/Components/User/Products";
 import Footer from "@/Components/User/Footer";
 import { Head } from "@inertiajs/react";
@@ -98,6 +99,8 @@ export default function Dashboard({ products }) {
             <ShieldsTwo />
 
             <Products products={products} />
+
+            <Features />
 
             <Footer />
         </User>
