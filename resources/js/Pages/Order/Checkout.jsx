@@ -64,8 +64,17 @@ export default function Checkout({ cart }) {
     return (
         <div className="min-h-screen bg-gray-100">
             {/* Header */}
-            <div className="bg-[#017bff] text-white font-extrabold text-sm text-center p-2">
+            <div className="bg-[#017bff] text-white font-extrabold text-sm text-center p-1">
                 Essa oferta acaba em poucos minutos!
+            </div>
+
+            <div className="bg-black text-white flex items-center justify-center">
+                {/* Adicione sua logo aqui */}
+                <img
+                    src="/assets/logo-raio.png"
+                    alt="Logo Storm Sports"
+                    className="h-24" // Ajuste a altura da logo conforme necessário
+                />
             </div>
 
             <div className="max-w-6xl mx-auto flex gap-10 mt-10">
