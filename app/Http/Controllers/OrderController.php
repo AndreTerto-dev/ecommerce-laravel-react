@@ -11,6 +11,7 @@ use App\Models\ShoppingCart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class OrderController extends Controller
 {
@@ -20,24 +21,23 @@ class OrderController extends Controller
     public function checkout()
     {
         if (Auth::check()) {
-            // Para o usuário autenticado, buscamos o carrinho do banco de dados e incluímos o relacionamento com os produtos
-            $cart = ShoppingCart::where('user_id', Auth::id())
-                ->with('items.product') // Certifique-se de que o relacionamento está correto no modelo
-                ->first();
-
-            // Mapeia os itens do carrinho e ajusta o caminho da imagem do produto
-            $cart['items'] = $cart['items']->map(function ($item) {
-                $product = $item->product;
-                $product->image_path = $product->image_path ? Storage::url($product->image_path) : '';
-
-                return [
-                    'product' => new ProductResource($product), // Usa o ProductResource para formatar o produto
-                    'quantity' => $item->quantity
-                ];
-            });
+            $cart = ShoppingCart::where('user_id', Auth::id())->with('items.product')->first();
         } else {
-
+            $guestId = $this->getGuestId();
+            $cart = ShoppingCart::where('guest_id', $guestId)->with('items.product')->first();
         }
+
+        $cart = $cart ?: ['items' => collect()];
+
+        $cart['items'] = $cart['items']->map(function ($item) {
+            $product = $item->product;
+            $product->image_path = $product->image_path ? Storage::url($product->image_path) : '';
+
+            return [
+                'product' => new ProductResource($product), // Usa o ProductResource para formatar o produto
+                'quantity' => $item->quantity
+            ];
+        });
 
         return inertia('Order/Checkout', ['cart' => $cart]);
     }
@@ -72,5 +72,17 @@ class OrderController extends Controller
         $payment = new MercadoPagoController();
 
         $payment->processPayment($data);
+    }
+
+    private function getGuestId()
+    {
+        // Verifica se já existe um guest_id na sessão
+        if (!session()->has('guest_id')) {
+            // Gera um novo UUID e armazena na sessão
+            session()->put('guest_id', (string) Str::uuid());
+        }
+
+        // Retorna o guest_id da sessão
+        return session('guest_id');
     }
 }
