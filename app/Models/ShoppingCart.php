@@ -9,7 +9,7 @@ class ShoppingCart extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user_id'];
+    protected $fillable = ['user_id', 'guest_id'];
 
     public function user()
     {
@@ -21,3 +21,4 @@ class ShoppingCart extends Model
         return $this->hasMany(CartItem::class);
     }
 }
+
