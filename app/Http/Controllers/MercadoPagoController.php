@@ -12,6 +12,8 @@ use WandesCardoso\MercadoPago\DTO\Payer;
 use WandesCardoso\MercadoPago\DTO\Payment;
 use WandesCardoso\MercadoPago\DTO\BackUrls;
 use WandesCardoso\MercadoPago\DTO\Preference;
+use Illuminate\Support\Str;
+
 
 
 class MercadoPagoController extends Controller
@@ -20,9 +22,12 @@ class MercadoPagoController extends Controller
     public function processPayment($data)
     {
         // Obtenha o carrinho do usuário autenticado
-        $cart = ShoppingCart::where('user_id', Auth::id())
-            ->with('items.product') // Certifique-se de que 'items.product' esteja corretamente configurado no modelo
-            ->first();
+        if (Auth::check()) {
+            $cart = ShoppingCart::where('user_id', Auth::id())->with('items.product')->first();
+        } else {
+            $guestId = $this->getGuestId();
+            $cart = ShoppingCart::where('guest_id', $guestId)->with('items.product')->first();
+        }
 
         if (!$cart || $cart->items->isEmpty()) {
             return response()->json(['error' => 'Carrinho vazio'], 400);
@@ -67,6 +72,18 @@ class MercadoPagoController extends Controller
 
         dd($response['body']->init_point);
 
+    }
+
+    private function getGuestId()
+    {
+        // Verifica se já existe um guest_id na sessão
+        if (!session()->has('guest_id')) {
+            // Gera um novo UUID e armazena na sessão
+            session()->put('guest_id', (string) Str::uuid());
+        }
+
+        // Retorna o guest_id da sessão
+        return session('guest_id');
     }
 
 }
