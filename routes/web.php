@@ -81,6 +81,10 @@ Route::get('/cuidados-com-o-manto', function () {
     return Inertia::render('Informacoes/CuidadosManto');
 });
 
+Route::get('/contato', [ContactMessageController::class, 'show'])->name('contact.show');
+
+Route::post('/contact-store', [ContactMessageController::class, 'store'])->name('contact.store');
+
 require __DIR__.'/auth.php';
 
 Route::prefix('admin')->middleware(['auth', 'verified', 'role:admin'])->group(function () {
