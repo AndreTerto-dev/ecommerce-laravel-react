@@ -32,7 +32,7 @@ export default function Troca() {
                         <strong>Comunicação Inicial:</strong> O primeiro passo
                         para troca ou devolução é comunicar nossa Central de
                         Atendimento pelo e-mail stormsports.oficial@gmail.com ou
-                        WhatsApp: <strong>(82) xxxxxxxxxx</strong>.
+                        WhatsApp: <strong>(82) 99643-2406</strong>.
                     </li>
                     <li>
                         <strong>Instruções:</strong> Nossa equipe instruirá o

@@ -28,7 +28,7 @@ export default function Reembolso() {
                         Lembrando que o primeiro passo para troca ou devolução é
                         comunicar nossa Central de Atendimento pelo E-mail:{" "}
                         <strong>stormsports.oficial@gmail.com</strong> ou
-                        WhatsApp: <strong>(82) xxxxxxxxx</strong>.
+                        WhatsApp: <strong>(82) 99643-2406</strong>.
                     </p>
                     <p>
                         Nossa equipe instruirá o cliente em como proceder com a

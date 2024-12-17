@@ -56,7 +56,7 @@ export default function QuemSomos() {
                         Possuímos um excelente serviço de atendimento, o que
                         permite a aproximação total do cliente ao produto
                         desejado. Qualquer dúvida entre em contato conosco pelo
-                        e-mail:{" "}
+                        Whatsapp: (82) 99643-2406 ou pelo e-mail:{" "}
                         <a
                             href="mailto:stormsports.oficial@gmail.com"
                             className="text-blue-500"
@@ -65,9 +65,7 @@ export default function QuemSomos() {
                         </a>
                         .
                     </p>
-                    <p>
-                        Teremos muito prazer em lhe atender e ajudar.
-                    </p>
+                    <p>Teremos muito prazer em lhe atender e ajudar.</p>
                     <p>
                         Um abraço, equipe <strong>Storm</strong>.
                     </p>

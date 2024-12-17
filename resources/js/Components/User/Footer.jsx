@@ -29,7 +29,7 @@ const Footer = () => {
                                 alt="Phone"
                                 className="inline-block mr-2 w-6 h-6"
                             />
-                            Contato: (82) xxxxxxxxxx
+                            Contato: (82) 99643-2406
                         </li>
                         <li>
                             <img
