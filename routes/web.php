@@ -4,6 +4,7 @@ use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\ContactMessageController;
 use App\Http\Controllers\MercadoPagoController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
@@ -46,6 +47,38 @@ Route::post('/process_payment', [OrderController::class, 'store'])->name('order.
 
 Route::get('/guia-medidas', function () {
     return Inertia::render('GuiaMedidas/Show');
+});
+
+Route::get('/politica-de-pagamento', function () {
+    return Inertia::render('Politicas/Pagamento');
+});
+Route::get('/politica-de-privacidade', function () {
+    return Inertia::render('Politicas/Privacidade');
+});
+Route::get('/politica-de-reembolso', function () {
+    return Inertia::render('Politicas/Reembolso');
+});
+Route::get('/politica-de-frete', function () {
+    return Inertia::render('Politicas/Frete');
+});
+Route::get('/politica-de-troca', function () {
+    return Inertia::render('Politicas/Troca');
+});
+
+Route::get('/quem-somos', function () {
+    return Inertia::render('Informacoes/QuemSomos');
+});
+Route::get('/loja-confiavel', function () {
+    return Inertia::render('Informacoes/LojaConfiavel');
+});
+Route::get('/perguntas-frequentes', function () {
+    return Inertia::render('Informacoes/PerguntasFrequentes');
+});
+Route::get('/rastrear-pedido', function () {
+    return Inertia::render('Informacoes/RastrearPedido');
+});
+Route::get('/cuidados-com-o-manto', function () {
+    return Inertia::render('Informacoes/CuidadosManto');
 });
 
 require __DIR__.'/auth.php';
