@@ -29,7 +29,7 @@ const Footer = () => {
                                 alt="Phone"
                                 className="inline-block mr-2 w-6 h-6"
                             />
-                            Contato: (11) 91278-9493
+                            Contato: (82) xxxxxxxxxx
                         </li>
                         <li>
                             <img
@@ -37,7 +37,7 @@ const Footer = () => {
                                 alt="Email"
                                 className="inline-block mr-2 w-6 h-6"
                             />
-                            E-mail: contato@futgrife.com
+                            E-mail: stormsports.oficial@gmail.com
                         </li>
                     </ul>
 
@@ -122,7 +122,7 @@ const Footer = () => {
                                 className="bg-white"
                             ></span>
                             <a
-                                href="#"
+                                href="/politica-de-pagamento"
                                 className="hover:text-[#017bff] transition-colors"
                             >
                                 Política de Pagamento
@@ -134,7 +134,7 @@ const Footer = () => {
                                 className="bg-white"
                             ></span>
                             <a
-                                href="#"
+                                href="/politica-de-privacidade"
                                 className="hover:text-[#017bff] transition-colors"
                             >
                                 Política de Privacidade
@@ -146,7 +146,7 @@ const Footer = () => {
                                 className="bg-white"
                             ></span>
                             <a
-                                href="#"
+                                href="/politica-de-reembolso"
                                 className="hover:text-[#017bff] transition-colors"
                             >
                                 Política de Reembolso
@@ -158,7 +158,7 @@ const Footer = () => {
                                 className="bg-white"
                             ></span>
                             <a
-                                href="#"
+                                href="/politica-de-frete"
                                 className="hover:text-[#017bff] transition-colors"
                             >
                                 Política de Frete
@@ -170,7 +170,7 @@ const Footer = () => {
                                 className="bg-white"
                             ></span>
                             <a
-                                href="#"
+                                href="/politica-de-troca"
                                 className="hover:text-[#017bff] transition-colors"
                             >
                                 Trocas e Devoluções
@@ -189,7 +189,7 @@ const Footer = () => {
                                 className="bg-white"
                             ></span>
                             <a
-                                href="#"
+                                href="/quem-somos"
                                 className="hover:text-[#017bff] transition-colors"
                             >
                                 Quem Somos
@@ -201,7 +201,7 @@ const Footer = () => {
                                 className="bg-white"
                             ></span>
                             <a
-                                href="#"
+                                href="/loja-confiavel"
                                 className="hover:text-[#017bff] transition-colors"
                             >
                                 StormSports é confiável?
@@ -213,7 +213,7 @@ const Footer = () => {
                                 className="bg-white"
                             ></span>
                             <a
-                                href="#"
+                                href="/perguntas-frequentes"
                                 className="hover:text-[#017bff] transition-colors"
                             >
                                 Perguntas Frequentes
@@ -225,7 +225,7 @@ const Footer = () => {
                                 className="bg-white"
                             ></span>
                             <a
-                                href="#"
+                                href="/rastrear-pedido"
                                 className="hover:text-[#017bff] transition-colors"
                             >
                                 Rastrear Pedido
@@ -237,7 +237,7 @@ const Footer = () => {
                                 className="bg-white"
                             ></span>
                             <a
-                                href="#"
+                                href="/guia-medidas"
                                 className="hover:text-[#017bff] transition-colors"
                             >
                                 Guia de Medidas
@@ -249,7 +249,7 @@ const Footer = () => {
                                 className="bg-white"
                             ></span>
                             <a
-                                href="#"
+                                href="/cuidados-com-o-manto"
                                 className="hover:text-[#017bff] transition-colors"
                             >
                                 Cuidados com o manto
@@ -261,7 +261,7 @@ const Footer = () => {
                                 className="bg-white"
                             ></span>
                             <a
-                                href="#"
+                                href="/contato"
                                 className="hover:text-[#017bff] transition-colors"
                             >
                                 Entrar em contato
