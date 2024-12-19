@@ -5,6 +5,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\ContactMessageController;
+use App\Http\Controllers\CustomerEmailController;
 use App\Http\Controllers\MercadoPagoController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
@@ -82,8 +83,9 @@ Route::get('/cuidados-com-o-manto', function () {
 });
 
 Route::get('/contato', [ContactMessageController::class, 'show'])->name('contact.show');
-
 Route::post('/contact-store', [ContactMessageController::class, 'store'])->name('contact.store');
+
+Route::post('/email-store', [CustomerEmailController::class, 'store'])->name('email.store');
 
 require __DIR__.'/auth.php';
 
