@@ -1,6 +1,35 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import InputError from "./InputError";
+import TextInput from "./TextInput";
+import { useForm } from "@inertiajs/react";
+import { toast, Toaster } from "sonner";
 
 const Footer = () => {
+    const { data, setData, post, errors } = useForm({
+        email: "",
+    });
+
+    const [isSuccess, setIsSuccess] = useState(false); // Estado para controlar se o envio foi bem-sucedido
+
+    useEffect(() => {
+        if (isSuccess) {
+            toast.success("Email enviado com sucesso!"); // Exibe a mensagem de sucesso no toast
+        }
+    }, [isSuccess]); // O toast será chamado apenas quando isSuccess mudar para true
+
+    const onSubmit = (e) => {
+        e.preventDefault();
+
+        // Envia os dados para o servidor
+        post(route("email.store"), {
+            data, // Dados do formulário
+            onSuccess: () => {
+                setData({ email: "" }); // Limpa os campos
+                setIsSuccess(true); // Define o estado como true para disparar o toast
+            },
+        });
+    };
+
     return (
         <footer className="bg-black text-white p-8 border-t-4 border-[#017bff]">
             <div className="bg-black text-white flex items-center justify-center">
@@ -277,12 +306,24 @@ const Footer = () => {
                         Fique por dentro de todas as novidades e ofertas em
                         primeira mão
                     </p>
-                    <form className="flex flex-col space-y-4">
+                    <form
+                        onSubmit={onSubmit}
+                        className="flex flex-col space-y-4"
+                    >
                         <input
+                            id="email"
                             type="email"
+                            name="email"
+                            value={data.email}
                             placeholder="Seu e-mail"
                             className="p-2 rounded bg-gray-800 text-white border border-gray-600"
+                            onChange={(e) => setData("email", e.target.value)}
                         />
+                        <InputError
+                            message={errors.email}
+                            className="mt-1 text-red-500"
+                        />
+
                         <button
                             type="submit"
                             className="bg-[#017bff] py-2 px-4 rounded text-white hover:bg-[#0056b3] hover:text-white transition-colors"
@@ -300,6 +341,13 @@ const Footer = () => {
                     &copy; 2024 Loja Storm Sports - Todos os direitos reservados
                 </p>
             </div>
+            <Toaster
+                position="top-right"
+                richColors
+                toastOptions={{
+                    className: "text-sm", // Aumenta o texto e o padding
+                }}
+            />
         </footer>
     );
 };
