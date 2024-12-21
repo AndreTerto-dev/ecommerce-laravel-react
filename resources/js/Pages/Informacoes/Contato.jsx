@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Header from "@/Components/User/Header";
 import Footer from "@/Components/User/Footer";
 import { Head, useForm } from "@inertiajs/react";
 import TextInput from "@/Components/User/TextInput";
 import InputError from "@/Components/User/InputError";
+import { toast, Toaster } from "sonner";
 
 export default function Contato({ success }) {
     const { data, setData, post, errors } = useForm({
@@ -11,6 +12,12 @@ export default function Contato({ success }) {
         email: "",
         message: "",
     });
+
+    useEffect(() => {
+        if (success) {
+            toast.success(success); // Exibe o toast com a mensagem de sucesso
+        }
+    }, [success]); // Executa sempre que o sucesso mudar
 
     const onSubmit = (e) => {
         e.preventDefault();
@@ -28,37 +35,13 @@ export default function Contato({ success }) {
         });
     };
 
-    // Esconde a mensagem de sucesso após 5 segundos
-    if (success) {
-        setTimeout(() => {
-            const successElement = document.getElementById("success-message");
-            if (successElement) {
-                successElement.style.display = "none";
-            }
-        }, 5000);
-    }
+
 
     return (
         <div className="bg-gray-50 min-h-screen flex flex-col">
             <Head title="Contato" />
 
             <Header />
-
-            {success && (
-                <div
-                    id="success-message"
-                    className="fixed top-44 right-8 flex items-center justify-between p-4 bg-[#39b54a]/95 hover:bg-[#39b54a] border border-green-400 text-white rounded-lg shadow-md z-50"
-                >
-                    <div className="flex items-center">
-                        <img
-                            src="/assets/check.png"
-                            alt="Success"
-                            className="w-8 h-8 mr-2"
-                        />
-                        <span className="font-semibold text-lg">{success}</span>
-                    </div>
-                </div>
-            )}
 
             <div className="flex flex-col items-center justify-center flex-1">
                 <div className="p-8 max-w-3xl w-full">
@@ -137,6 +120,8 @@ export default function Contato({ success }) {
             </div>
 
             <Footer />
+
+            <Toaster position="top-right" richColors />
         </div>
     );
 }
