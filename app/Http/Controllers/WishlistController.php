@@ -30,7 +30,7 @@ class WishlistController extends Controller
 
             if ($wishlistItem) {
                 return to_route('wishlist.show')
-                    ->with('failure', 'Produto ja está na lista de desejos');
+                    ->with('info', 'Este produto já está na Lista de Desejos!');
             } else {
                 WishlistItem::create([
                     'product_id' => $product->id,
@@ -38,13 +38,15 @@ class WishlistController extends Controller
                     'product' => $product,
                 ]);
             }
+        } else {
+            return back()->with('warning', 'Faça login para adicionar à Lista de Desejos.');
         }
 
         // Retorne o carrinho completo para o frontend
         $wishlist = Auth::check() ? new WishlistResource($wishlist) : null;
 
         return to_route('wishlist.show')
-            ->with('success', 'Produto adicionado com sucesso');
+            ->with('success', 'Produto adicionado à sua Lista de Desejos!');
     }
 
 
@@ -59,21 +61,16 @@ class WishlistController extends Controller
             if ($wishlist) {
                 $wishlistItem = WishlistItem::where('product_id', $itemId)->where('wishlist_id', $wishlist->id)->first();
 
-                if ($wishlistItem) {
-                    if ($wishlistItem->quantity > 1) {
-                        // Se a quantidade é maior que 1, diminui 1
-                        $wishlistItem->quantity -= 1;
-                        $wishlistItem->save();
-                    } else {
-                        // Se a quantidade é 1, remove o item do carrinho
-                        $wishlistItem->delete();
-                    }
-                }
+                if ($wishlistItem) $wishlistItem->delete();
+                
             }
+        } else {
+            return back()->with('warning', 'Faça login para acessar sua Lista de Desejos.');
         }
 
+
         // Após a remoção, redireciona de volta para o carrinho
-        return redirect()->route('wishlist.show')->with('message', 'item removido da lista de desejos');
+        return redirect()->route('wishlist.show')->with('success', 'Item removido da Lista de Desejos!');
     }
 
     public function showWishlist()
@@ -96,11 +93,17 @@ class WishlistController extends Controller
                     'product' => new ProductResource($product), // Usa o ProductResource para formatar o produto
                 ];
             });
+        } else {
+            return back()->with('warning', 'Faça login para acessar sua Lista de Desejos.');
         }
 
         return inertia('Wishlist/Show', [
             'wishlist' => $wishlist,
             'success' => session('success'), // Certifique-se de que a mensagem está na sessão
+            'error' => session('error'),
+            'warning' => session('warning'),
+            'info' => session('info'),
+
         ]);
     }
 }
