@@ -15,6 +15,7 @@ const Footer = () => {
         if (isSuccess) {
             toast.success("Email enviado com sucesso!"); // Exibe a mensagem de sucesso no toast
         }
+        setIsSuccess(false);
     }, [isSuccess]); // O toast será chamado apenas quando isSuccess mudar para true
 
     const onSubmit = (e) => {
