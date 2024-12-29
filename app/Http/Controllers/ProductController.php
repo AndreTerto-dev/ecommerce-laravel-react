@@ -204,6 +204,7 @@ class ProductController extends Controller
         return inertia("User/Product", [
             "product" => new ProductResource($product), // Retorna um único produto
             'images' => $images,
+            'warning' => session('warning'),
         ]);
     }
 
