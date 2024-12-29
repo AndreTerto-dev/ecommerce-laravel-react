@@ -2,18 +2,25 @@ import React, { useState, useEffect } from "react";
 import { Link, useForm, router } from "@inertiajs/react";
 import Header from "@/Components/User/Header";
 import Footer from "@/Components/User/Footer";
+import { toast, Toaster } from "sonner";
 
-export default function Show({ wishlist, success }) {
+export default function Show({ wishlist, success, error, info, warning }) {
     const { delete: deleteItem, post } = useForm();
-    const [showSuccess, setShowSuccess] = useState(!!success);
 
-    // Auto-esconde a notificação após 3 segundos
     useEffect(() => {
-        if (showSuccess) {
-            const timer = setTimeout(() => setShowSuccess(false), 3000);
-            return () => clearTimeout(timer); // Limpa o timer para evitar problemas
+        if (success) {
+            toast.success(success); // Exibe o toast com a mensagem de sucesso
         }
-    }, [showSuccess]);
+        if (error) {
+            toast.error(error); // Exibe o toast com a mensagem de erro
+        }
+        if (info) {
+            toast.info(info); // Exibe o toast com a mensagem de informação
+        }
+        if (warning) {
+            toast.warning(warning); // Exibe o toast com a mensagem de aviso
+        }
+    }, [success, error, info, warning]);
 
     const handleRemove = (itemId) => {
         router.delete(route("wishlist.remove", itemId));
@@ -26,13 +33,6 @@ export default function Show({ wishlist, success }) {
     return (
         <div className="bg-gray-50 relative">
             <Header />
-
-            {/* Notificação Pop-up */}
-            {showSuccess && (
-                <div className="fixed top-40 right-4 bg-emerald-600 text-white px-4 py-2 rounded shadow-lg z-50 animate-fade-in-out">
-                    {success}
-                </div>
-            )}
 
             <div className="p-8">
                 <div className="flex justify-center items-start">
@@ -117,6 +117,13 @@ export default function Show({ wishlist, success }) {
                 </div>
             </div>
             <Footer />
+            <Toaster
+                position="top-right"
+                richColors
+                toastOptions={{
+                    className: "text-sm", // Aumenta o texto e o padding
+                }}
+            />
         </div>
     );
 }
