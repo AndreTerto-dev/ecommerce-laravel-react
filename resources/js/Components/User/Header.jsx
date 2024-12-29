@@ -1,8 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, usePage, useForm } from "@inertiajs/react";
 import InputError from "@/Components/User/InputError";
 import PrimaryButton from "@/Components/User/PrimaryButton";
 import TextInput from "@/Components/User/TextInput";
+import { toast, Toaster } from "sonner";
+
 
 export default function Header() {
     const { data, setData, post, processing, errors, reset } = useForm({
@@ -10,6 +12,22 @@ export default function Header() {
         password: "",
         remember: false,
     });
+
+    const [warning, setWarning] = useState(false);
+
+    useEffect(() => {
+        if (warning) {
+            toast.warning("Faça login para acessar sua Lista de Desejos.");
+        }
+        setWarning(false);
+    }, [warning]);
+
+    const handleWishlistClick = (e) => {
+        if (!auth.user) {
+            e.preventDefault(); // Evita o redirecionamento
+            setWarning(true); // Define o warning como true
+        }
+    };
 
     const submit = (e) => {
         e.preventDefault();
@@ -54,7 +72,7 @@ export default function Header() {
             </div>
 
             {/* Header */}
-            <header className="flex flex-col p-4 h-32 bg-gradient-to-b from-[#0a0f14] to-[#262b2e] shadow-md w-full border-b-4 border-[#017bff]">
+            <header className="flex flex-col p-4 h-32 bg-gradient-to-b from-black to-[#262b2e] shadow-md w-full border-b-4 border-[#017bff]">
                 <div className="flex items-start justify-center gap-16 ml-10 mt-2">
                     <div className="flex items-center -ml-20 -mt-1">
                         <img
@@ -322,10 +340,10 @@ export default function Header() {
                             <a
                                 href="/wishlist"
                                 className="hover:bg-gray-600 px-4 py-2 rounded transition duration-300"
+                                onClick={handleWishlistClick}
                             >
                                 LISTA DE DESEJOS
                             </a>
-                            
                         </li>
                         {auth.user && auth.user.role === "admin" ? (
                             <li>
@@ -339,6 +357,13 @@ export default function Header() {
                         ) : null}
                     </ul>
                 </nav>
+                <Toaster
+                    position="top-right"
+                    richColors
+                    toastOptions={{
+                        className: "text-sm", // Aumenta o texto e o padding
+                    }}
+                />
             </header>
         </>
     );
