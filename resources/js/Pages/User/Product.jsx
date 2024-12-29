@@ -1,13 +1,19 @@
 import User from "@/Layouts/User";
 import Header from "@/Components/User/Header";
 import { Head, Link, useForm } from "@inertiajs/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Footer from "@/Components/User/Footer";
+import { toast, Toaster } from "sonner";
 
-const Product = ({ product, images }) => {
+const Product = ({ product, images, warning }) => {
     // Estado para gerenciar a imagem principal que será exibida em destaque
     const [selectedImage, setSelectedImage] = useState(images[0]);
 
+    useEffect(() => {
+        if (warning) {
+            toast.warning(warning); // Exibe o toast com a mensagem de aviso
+        }
+    }, [warning]);
 
     return (
         <User>
@@ -153,6 +159,13 @@ const Product = ({ product, images }) => {
                 </div>
             </div>
             <Footer />
+            <Toaster
+                position="top-right"
+                richColors
+                toastOptions={{
+                    className: "text-sm", // Aumenta o texto e o padding
+                }}
+            />
         </User>
     );
 };
