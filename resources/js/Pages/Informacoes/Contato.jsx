@@ -120,8 +120,6 @@ export default function Contato({ success }) {
             </div>
 
             <Footer />
-
-            <Toaster position="top-right" richColors />
         </div>
     );
 }

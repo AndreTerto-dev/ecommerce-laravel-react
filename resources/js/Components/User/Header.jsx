@@ -336,13 +336,6 @@ export default function Header() {
                             </div>
                         )}
                     </div>
-                    <Toaster
-                        position="top-right"
-                        richColors
-                        toastOptions={{
-                            className: "text-sm", // Aumenta o texto e o padding
-                        }}
-                    />
                 </div>
             ) : (
                 // Versão desktop
@@ -635,13 +628,6 @@ export default function Header() {
                             ) : null}
                         </ul>
                     </nav>
-                    <Toaster
-                        position="top-right"
-                        richColors
-                        toastOptions={{
-                            className: "text-sm", // Aumenta o texto e o padding
-                        }}
-                    />
                 </header>
             )}
         </>

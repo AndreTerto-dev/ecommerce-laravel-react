@@ -159,13 +159,6 @@ const Product = ({ product, images, warning }) => {
                 </div>
             </div>
             <Footer />
-            <Toaster
-                position="top-right"
-                richColors
-                toastOptions={{
-                    className: "text-sm", // Aumenta o texto e o padding
-                }}
-            />
         </User>
     );
 };

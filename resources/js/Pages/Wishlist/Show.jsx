@@ -117,13 +117,6 @@ export default function Show({ wishlist, success, error, info, warning }) {
                 </div>
             </div>
             <Footer />
-            <Toaster
-                position="top-right"
-                richColors
-                toastOptions={{
-                    className: "text-sm", // Aumenta o texto e o padding
-                }}
-            />
         </div>
     );
 }
