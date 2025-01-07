@@ -1,18 +1,37 @@
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination, Scrollbar, A11y } from "swiper/modules"; // Adicionando módulos que você quer usar
+import { useEffect, useState } from "react";
+import { Navigation, Pagination } from "swiper/modules"; // Módulos necessários
 import "swiper/swiper-bundle.css"; // Importando estilos do Swiper
 
 export default function Shields() {
+    // Verificando se a tela é mobile
+    const [isMobile, setIsMobile] = useState(false);
+
+    useEffect(() => {
+        const handleResize = () => {
+            setIsMobile(window.innerWidth < 640); // Atualiza o estado com base na largura da janela
+        };
+
+        handleResize(); // Executa na montagem do componente para pegar o tamanho inicial da janela
+        window.addEventListener("resize", handleResize); // Atualiza dinamicamente quando a janela é redimensionada
+
+        return () => {
+            window.removeEventListener("resize", handleResize); // Remove o ouvinte de evento quando o componente for desmontado
+        };
+    }, []);
+
     return (
-        <div className="mt-4 px-8">
+        <div className="mt-4 sm:-ml-0 -ml-16">
             <Swiper
                 modules={[Navigation, Pagination]} // Usando os módulos de navegação e paginação
-                spaceBetween={-150} // Ajuste se necessário
-                slidesPerView={9} // Número de slides por visualização
-                slidesPerGroup={8} // Número de slides a serem movidos por vez
-                navigation // Adicionando botões de navegação
-                pagination={{ clickable: true }} // Paginação clicável
-                speed={1000} // Diminui a velocidade da transição para 250ms
+                spaceBetween={isMobile ? -60 : -150} // Ajuste do espaço entre os slides
+                slidesPerView={isMobile ? 3.5 : 9} // Número de slides por visualização, dependendo se é mobile
+                slidesPerGroup={isMobile ? 1 : 8} // Número de slides a serem movidos por vez, dependendo da tela
+                navigation={!isMobile} // Desativa as setas de navegação no mobile
+                pagination={isMobile ? false : { clickable: true }} // Desativa a paginação no mobile
+                speed={1000} // Ajustando a velocidade da transição"
+                grabCursor={isMobile} // Habilita o cursor de "arraste" no mobile
+                freeMode={isMobile} // Habilita o modo de scroll livre (lateral) no mobile
             >
                 {teams.map((team, index) => (
                     <SwiperSlide key={index}>
@@ -114,4 +133,3 @@ const teams = [
         link: "/santos",
     },
 ];
-
