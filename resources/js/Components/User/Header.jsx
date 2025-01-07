@@ -188,7 +188,7 @@ export default function Header() {
 
                     {!auth.user && (
                         <div
-                            className={`absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-white p-6 rounded-lg shadow-lg z-10 w-full h-5/6 mt-14 transform transition-all duration-300 ease-in-out ${
+                            className={`fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-white p-6 rounded-lg shadow-lg z-10 w-full h-5/6 mt-14 transform transition-all duration-300 ease-in-out ${
                                 isLoginOpen
                                     ? "scale-100 opacity-100"
                                     : "scale-95 opacity-0 pointer-events-none"
@@ -296,7 +296,12 @@ export default function Header() {
                                     <a href="/guia-medidas">GUIA DE MEDIDAS</a>
                                 </li>
                                 <li className="w-full text-start py-3 pl-6 hover:bg-gray-600/80 border-t-2 border-gray-600/40">
-                                    <a href="/wishlist">LISTA DE DESEJOS</a>
+                                    <a
+                                        href="/wishlist"
+                                        onClick={handleWishlistClick}
+                                    >
+                                        LISTA DE DESEJOS
+                                    </a>
                                 </li>
                             </ul>
 
@@ -321,6 +326,13 @@ export default function Header() {
                             </p>
                         </div>
                     )}
+                    <Toaster
+                        position="top-right"
+                        richColors
+                        toastOptions={{
+                            className: "text-sm", // Aumenta o texto e o padding
+                        }}
+                    />
                 </div>
             ) : (
                 // Versão desktop
