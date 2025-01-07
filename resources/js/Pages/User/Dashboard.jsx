@@ -5,7 +5,12 @@ import ShieldsTwo from "@/Components/User/ShieldsTwo";
 import Features from "@/Components/User/FeaturesSection";
 import Products from "@/Components/User/Products";
 import Footer from "@/Components/User/Footer";
+import Cards from "@/Components/User/Cards";
+import CardsTwo from "@/Components/User/CardsTwo";
 import { Head } from "@inertiajs/react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/swiper-bundle.css"; // Importando estilos do Swiper
+
 
 export default function Dashboard({ products }) {
     return (
@@ -15,15 +20,22 @@ export default function Dashboard({ products }) {
             <Header />
 
             {/* Banner Section */}
-            <div className="relative w-11/12 h-auto mt-9 mx-auto overflow-hidden transition-all duration-700 hover:scale-105">
+            <div className="relative w-full h-auto mx-auto overflow-hidden transition-all duration-700 md:hover:scale-105">
                 <a
                     href="/alguma-pagina"
                     className="block transition-all duration-300"
                 >
+                    {/* Banner Desktop */}
                     <img
                         src="/assets/banner-one.png"
                         alt="Banner da Loja de Camisas"
-                        className="w-full h-auto rounded-xl transition-all duration-300"
+                        className="hidden sm:block w-11/12 h-auto mx-auto rounded-xl transition-all duration-300 mt-9"
+                    />
+                    {/* Banner Mobile */}
+                    <img
+                        src="/assets/banner-mobile.png"
+                        alt="Banner Mobile"
+                        className="block sm:hidden w-full h-auto rounded-none transition-all duration-300"
                     />
                 </a>
             </div>
@@ -32,67 +44,11 @@ export default function Dashboard({ products }) {
 
             <Products products={products} />
 
-            <div className="flex gap-6 mx-12 mt-12">
-                <div>
-                    <a href="/brasileiros" className="">
-                        <img
-                            src="/assets/cards/brasileiros.png"
-                            alt="Banner da Loja de Camisas"
-                            className="h-auto rounded-xl"
-                        />
-                    </a>
-                </div>
-                <div>
-                    <a href="/internacionais" className="">
-                        <img
-                            src="/assets/cards/internacionais.png"
-                            alt="Banner da Loja de Camisas"
-                            className="h-auto rounded-xl"
-                        />
-                    </a>
-                </div>
-                <div>
-                    <a href="/selecoes" className="">
-                        <img
-                            src="/assets/cards/selecoes.png"
-                            alt="Banner da Loja de Camisas"
-                            className="h-auto rounded-xl mb-12"
-                        />
-                    </a>
-                </div>
-            </div>
-
+            <Cards />
+            
             <Products products={products} />
 
-            <div className="flex gap-6 mx-12 mt-12">
-                <div>
-                    <a href="/femininas" className="">
-                        <img
-                            src="/assets/cards/femininas.png"
-                            alt="Banner da Loja de Camisas"
-                            className="h-auto rounded-xl"
-                        />
-                    </a>
-                </div>
-                <div>
-                    <a href="/infantis" className="">
-                        <img
-                            src="/assets/cards/infantis.png"
-                            alt="Banner da Loja de Camisas"
-                            className="h-auto rounded-xl"
-                        />
-                    </a>
-                </div>
-                <div>
-                    <a href="/retros" className="">
-                        <img
-                            src="/assets/cards/retros.png"
-                            alt="Banner da Loja de Camisas"
-                            className="h-auto rounded-xl mb-12"
-                        />
-                    </a>
-                </div>
-            </div>
+            <CardsTwo />
 
             <Products products={products} />
 
