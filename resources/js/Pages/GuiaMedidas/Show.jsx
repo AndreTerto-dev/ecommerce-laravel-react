@@ -1,9 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link, useForm, router } from "@inertiajs/react";
 import Header from "@/Components/User/Header";
 import Footer from "@/Components/User/Footer";
 
 export default function Show() {
+    useEffect(() => {
+        // Força a página a rolar para o topo ao carregar
+        window.scrollTo(0, 0);
+    }, []);
     return (
         <div className="bg-gray-50 relative">
             <Header />
