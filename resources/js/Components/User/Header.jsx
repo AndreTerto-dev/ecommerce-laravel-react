@@ -293,10 +293,10 @@ export default function Header() {
                                     <a href="#infantil">INFANTIL</a>
                                 </li>
                                 <li className="w-full text-start py-3 pl-6 hover:bg-gray-600/80">
-                                    <a href="#acessorios">GUIA DE MEDIDAS</a>
+                                    <a href="/guia-medidas">GUIA DE MEDIDAS</a>
                                 </li>
                                 <li className="w-full text-start py-3 pl-6 hover:bg-gray-600/80 border-t-2 border-gray-600/40">
-                                    <a href="#acessorios">LISTA DE DESEJOS</a>
+                                    <a href="/wishlist">LISTA DE DESEJOS</a>
                                 </li>
                             </ul>
 
