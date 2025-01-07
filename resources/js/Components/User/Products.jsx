@@ -27,7 +27,7 @@ export default function Products({ products }) {
             </h2>
             <Swiper
                 modules={[Navigation, Pagination, Scrollbar, A11y]}
-                spaceBetween={isMobile ? -100 : 20}
+                spaceBetween={isMobile ? -150 : 20}
                 slidesPerView={isMobile ? 1 : 6}
                 slidesPerGroup={isMobile ? 1 : 6}
                 navigation={!isMobile} // Desativa as setas de navegação no mobile
@@ -37,7 +37,7 @@ export default function Products({ products }) {
             >
                 {products.data.map((product) => (
                     <SwiperSlide key={product.id}>
-                        <div className="px-7">
+                        <div className="pl-7">
                             <div className="w-72 sm:w-auto border rounded-lg p-4 mt-4 shadow-sm hover:shadow-2xl transition-shadow duration-300 mb-12 relative">
                                 <span className="text-white bg-[#017bff] py-1 px-2 rounded-lg text-sm font-semibold absolute -mt-2">
                                     {product.discount}% OFF
