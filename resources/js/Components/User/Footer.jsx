@@ -334,11 +334,11 @@ const Footer = () => {
                     </form>
                 </div>
             </div>
-            <div className="text-center mt-12">
-                <p className="mb-2">
+            <div className="text-center mt-12 mb-6">
+                <p className="mb-2 sm:text-base text-sm">
                     Loja oficial e registrada | www.stormsports.com
                 </p>
-                <p className="-mb-6">
+                <p className="-mb-6 sm:text-base text-sm">
                     &copy; 2024 Loja Storm Sports - Todos os direitos reservados
                 </p>
             </div>
