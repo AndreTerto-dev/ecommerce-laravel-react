@@ -106,226 +106,236 @@ export default function Header() {
 
             {/* Header responsivo para mobile */}
             {isMobile ? (
-                <div className="flex justify-between items-center bg-gradient-to-b from-black to-[#1A1D1F] shadow-md w-full px-5 py-4 border-b-4 border-[#017bff]">
-                    {/* Botão de Menu (Hambúrguer) */}
-                    <button
-                        className="text-white focus:outline-none"
-                        onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                    >
-                        <svg
-                            className="w-6 h-6"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                            xmlns="http://www.w3.org/2000/svg"
+                <div>
+                    <div className="flex justify-between bg-gradient-to-b from-black to-[#1A1D1F] shadow-md w-full px-5 py-4 border-b-4 border-[#017bff]">
+                        {/* Botão de Menu (Hambúrguer) */}
+                        <button
+                            className="text-white focus:outline-none"
+                            onClick={() =>
+                                setIsMobileMenuOpen(!isMobileMenuOpen)
+                            }
                         >
-                            <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth={2}
-                                d="M4 6h16M4 12h16m-7 6h7"
-                            />
-                        </svg>
-                    </button>
+                            <svg
+                                className="w-6 h-6"
+                                fill="none"
+                                stroke="currentColor"
+                                viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg"
+                            >
+                                <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    strokeWidth={2}
+                                    d="M4 6h16M4 12h16m-7 6h7"
+                                />
+                            </svg>
+                        </button>
 
-                    {/* Logo */}
-                    <div className="flex items-center">
-                        <a href="/">
-                            <img
-                                src="/assets/logo-text.png"
-                                alt="Logo"
-                                className="w-48 h-auto mr-2"
-                            />
-                        </a>
-                    </div>
+                        {/* Logo */}
+                        <div className="flex items-center">
+                            <a href="/">
+                                <img
+                                    src="/assets/logo-text.png"
+                                    alt="Logo"
+                                    className="w-48 h-auto mr-2"
+                                />
+                            </a>
+                        </div>
 
-                    {/* Ações do Usuário */}
-                    <div className="flex justify-end">
-                        {auth.user ? (
+                        {/* Ações do Usuário */}
+                        <div className="flex">
+                            {auth.user ? (
+                                <div className="flex items-center">
+                                    <img
+                                        src="/assets/header/user-icon.png"
+                                        alt="Usuário"
+                                        className="w-6 h-6 mr-2"
+                                    />
+                                </div>
+                            ) : (
+                                <div className="flex items-center">
+                                    <div>
+                                        <a
+                                            href="#minha-conta"
+                                            onClick={toggleLogin}
+                                        >
+                                            <img
+                                                src="/assets/header/user-icon.png"
+                                                alt="Usuário"
+                                                className="w-6 h-auto mr-2"
+                                            />
+                                        </a>
+                                    </div>
+                                </div>
+                            )}
+
                             <div className="flex items-center">
                                 <img
-                                    src="/assets/header/user-icon.png"
-                                    alt="Usuário"
-                                    className="w-6 h-6 mr-2"
+                                    src="/assets/header/search-icon.png"
+                                    alt="Localizar"
+                                    className="w-6 h-auto mr-2"
                                 />
                             </div>
-                        ) : (
+
                             <div className="flex items-center">
-                                <div className="flex flex-col items-center">
-                                    <a
-                                        href="#minha-conta"
-                                        className="text-white font-bold text-base flex items-center"
-                                        onClick={toggleLogin}
-                                    >
-                                        <img
-                                            src="/assets/header/user-icon.png"
-                                            alt="Usuário"
-                                            className="w-6 h-auto mr-2"
+                                <a href="/cart">
+                                    <img
+                                        src="/assets/header/cart-icon.png"
+                                        alt="Carrinho"
+                                        className="w-6 h-auto"
+                                    />
+                                </a>
+                            </div>
+                        </div>
+
+                        {!auth.user && (
+                            <div
+                                className={`fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-white p-6 rounded-lg shadow-lg z-10 w-full h-5/6 mt-14 transform transition-all duration-300 ease-in-out ${
+                                    isLoginOpen
+                                        ? "scale-100 opacity-100"
+                                        : "scale-95 opacity-0 pointer-events-none"
+                                }`}
+                            >
+                                <h2 className="text-xl font-bold mb-4 text-center">
+                                    Entrar na minha conta
+                                </h2>
+                                <h3 className="text-xl mb-4 text-center text-black/80">
+                                    Insira seu e-mail e senha:
+                                </h3>
+                                <form onSubmit={submit} className="mx-auto">
+                                    <div>
+                                        <TextInput
+                                            id="email"
+                                            type="email"
+                                            name="email"
+                                            value={data.email}
+                                            placeholder="Email"
+                                            className="mt-12 block w-full"
+                                            autoComplete="username"
+                                            isFocused={true}
+                                            onChange={(e) =>
+                                                setData("email", e.target.value)
+                                            }
                                         />
-                                    </a>
+
+                                        <InputError
+                                            message={errors.email}
+                                            className="mt-2"
+                                        />
+                                    </div>
+
+                                    <div className="mt-3 mb-7">
+                                        <TextInput
+                                            id="password"
+                                            type="password"
+                                            name="password"
+                                            value={data.password}
+                                            placeholder="Senha"
+                                            className="mt-1 block w-full"
+                                            autoComplete="current-password"
+                                            onChange={(e) =>
+                                                setData(
+                                                    "password",
+                                                    e.target.value
+                                                )
+                                            }
+                                        />
+
+                                        <InputError
+                                            message={errors.password}
+                                            className="mt-2"
+                                        />
+                                    </div>
+                                    <PrimaryButton disabled={processing}>
+                                        Entrar
+                                    </PrimaryButton>
+                                </form>
+                                <div className="mt-32 text-center">
+                                    <span className="text-black/80">
+                                        Novo cliente?{" "}
+                                    </span>
+                                    <Link
+                                        href={route("register")}
+                                        className="text-[#007bff]"
+                                    >
+                                        Criar sua conta
+                                    </Link>
+                                </div>
+                                <div className="mt-2 text-center">
+                                    <span className="text-black/80">
+                                        Esqueceu sua senha?{" "}
+                                    </span>
+                                    <Link
+                                        href={route("password.request")}
+                                        className="text-[#007bff]"
+                                    >
+                                        Recuperar senha
+                                    </Link>
                                 </div>
                             </div>
                         )}
 
-                        <div className="flex items-center">
-                            <img
-                                src="/assets/header/search-icon.png"
-                                alt="Localizar"
-                                className="w-6 h-auto mr-2"
-                            />
-                        </div>
+                        {/* Menu suspenso */}
+                        {isMobileMenuOpen && (
+                            <div className="absolute top-28 left-0 w-full bg-black/90 shadow-lg z-10 py-1">
+                                <ul className="flex flex-col items-center text-white font-bold text-base">
+                                    <li className="w-full text-start py-3 pl-6 hover:bg-gray-600/80">
+                                        <a href="/dashboard">INÍCIO</a>
+                                    </li>
+                                    <li className="w-full text-start py-3 pl-6 hover:bg-gray-600/80 border-y-2 border-gray-600/40">
+                                        <a href="#brasileiros">BRASILEIROS</a>
+                                    </li>
+                                    <li className="w-full text-start py-3 pl-6 hover:bg-gray-600/80">
+                                        <a href="#internacionais">
+                                            INTERNACIONAIS
+                                        </a>
+                                    </li>
+                                    <li className="w-full text-start py-3 pl-6 hover:bg-gray-600/80 border-y-2 border-gray-600/40">
+                                        <a href="#selecoes">SELEÇÕES</a>
+                                    </li>
+                                    <li className="w-full text-start py-3 pl-6 hover:bg-gray-600/80">
+                                        <a href="#retro">RETRO</a>
+                                    </li>
+                                    <li className="w-full text-start py-3 pl-6 hover:bg-gray-600/80 border-y-2 border-gray-600/40">
+                                        <a href="#infantil">INFANTIL</a>
+                                    </li>
+                                    <li className="w-full text-start py-3 pl-6 hover:bg-gray-600/80">
+                                        <a href="/guia-medidas">
+                                            GUIA DE MEDIDAS
+                                        </a>
+                                    </li>
+                                    <li className="w-full text-start py-3 pl-6 hover:bg-gray-600/80 border-t-2 border-gray-600/40">
+                                        <a
+                                            href="/wishlist"
+                                            onClick={handleWishlistClick}
+                                        >
+                                            LISTA DE DESEJOS
+                                        </a>
+                                    </li>
+                                </ul>
 
-                        <div className="flex items-center gap-2">
-                            <a href="/cart">
-                                <img
-                                    src="/assets/header/cart-icon.png"
-                                    alt="Carrinho"
-                                    className="w-6 h-auto"
-                                />
-                            </a>
-                        </div>
+                                <p className="flex flex-col text-white font-black text-lg mt-10 pl-6">
+                                    PRECISA DE AJUDA?
+                                </p>
+                                <p className="flex text-white font-black text-base mt-5 pl-6">
+                                    <img
+                                        src="/assets/footer/phone.png"
+                                        alt="Phone"
+                                        className="inline-block mr-2 w-7 h-7"
+                                    />
+                                    (82) 99643-2406
+                                </p>
+                                <p className="flex text-white font-black text-base mt-5 pl-6 mb-12">
+                                    <img
+                                        src="/assets/footer/email.png"
+                                        alt="Email"
+                                        className="inline-block mr-2 w-7 h-7"
+                                    />
+                                    stormsports.oficial@gmail.com
+                                </p>
+                            </div>
+                        )}
                     </div>
-
-                    {!auth.user && (
-                        <div
-                            className={`fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-white p-6 rounded-lg shadow-lg z-10 w-full h-5/6 mt-14 transform transition-all duration-300 ease-in-out ${
-                                isLoginOpen
-                                    ? "scale-100 opacity-100"
-                                    : "scale-95 opacity-0 pointer-events-none"
-                            }`}
-                        >
-                            <h2 className="text-xl font-bold mb-4 text-center">
-                                Entrar na minha conta
-                            </h2>
-                            <h3 className="text-xl mb-4 text-center text-black/80">
-                                Insira seu e-mail e senha:
-                            </h3>
-                            <form onSubmit={submit} className="mx-auto">
-                                <div>
-                                    <TextInput
-                                        id="email"
-                                        type="email"
-                                        name="email"
-                                        value={data.email}
-                                        placeholder="Email"
-                                        className="mt-12 block w-full"
-                                        autoComplete="username"
-                                        isFocused={true}
-                                        onChange={(e) =>
-                                            setData("email", e.target.value)
-                                        }
-                                    />
-
-                                    <InputError
-                                        message={errors.email}
-                                        className="mt-2"
-                                    />
-                                </div>
-
-                                <div className="mt-3 mb-7">
-                                    <TextInput
-                                        id="password"
-                                        type="password"
-                                        name="password"
-                                        value={data.password}
-                                        placeholder="Senha"
-                                        className="mt-1 block w-full"
-                                        autoComplete="current-password"
-                                        onChange={(e) =>
-                                            setData("password", e.target.value)
-                                        }
-                                    />
-
-                                    <InputError
-                                        message={errors.password}
-                                        className="mt-2"
-                                    />
-                                </div>
-                                <PrimaryButton disabled={processing}>
-                                    Entrar
-                                </PrimaryButton>
-                            </form>
-                            <div className="mt-32 text-center">
-                                <span className="text-black/80">
-                                    Novo cliente?{" "}
-                                </span>
-                                <Link
-                                    href={route("register")}
-                                    className="text-[#007bff]"
-                                >
-                                    Criar sua conta
-                                </Link>
-                            </div>
-                            <div className="mt-2 text-center">
-                                <span className="text-black/80">
-                                    Esqueceu sua senha?{" "}
-                                </span>
-                                <Link
-                                    href={route("password.request")}
-                                    className="text-[#007bff]"
-                                >
-                                    Recuperar senha
-                                </Link>
-                            </div>
-                        </div>
-                    )}
-
-                    {/* Menu suspenso */}
-                    {isMobileMenuOpen && (
-                        <div className="absolute top-28 left-0 w-full bg-black/90 shadow-lg z-10 py-1">
-                            <ul className="flex flex-col items-center text-white font-bold text-base">
-                                <li className="w-full text-start py-3 pl-6 hover:bg-gray-600/80">
-                                    <a href="/dashboard">INÍCIO</a>
-                                </li>
-                                <li className="w-full text-start py-3 pl-6 hover:bg-gray-600/80 border-y-2 border-gray-600/40">
-                                    <a href="#brasileiros">BRASILEIROS</a>
-                                </li>
-                                <li className="w-full text-start py-3 pl-6 hover:bg-gray-600/80">
-                                    <a href="#internacionais">INTERNACIONAIS</a>
-                                </li>
-                                <li className="w-full text-start py-3 pl-6 hover:bg-gray-600/80 border-y-2 border-gray-600/40">
-                                    <a href="#selecoes">SELEÇÕES</a>
-                                </li>
-                                <li className="w-full text-start py-3 pl-6 hover:bg-gray-600/80">
-                                    <a href="#retro">RETRO</a>
-                                </li>
-                                <li className="w-full text-start py-3 pl-6 hover:bg-gray-600/80 border-y-2 border-gray-600/40">
-                                    <a href="#infantil">INFANTIL</a>
-                                </li>
-                                <li className="w-full text-start py-3 pl-6 hover:bg-gray-600/80">
-                                    <a href="/guia-medidas">GUIA DE MEDIDAS</a>
-                                </li>
-                                <li className="w-full text-start py-3 pl-6 hover:bg-gray-600/80 border-t-2 border-gray-600/40">
-                                    <a
-                                        href="/wishlist"
-                                        onClick={handleWishlistClick}
-                                    >
-                                        LISTA DE DESEJOS
-                                    </a>
-                                </li>
-                            </ul>
-
-                            <p className="flex flex-col text-white font-black text-lg mt-10 pl-6">
-                                PRECISA DE AJUDA?
-                            </p>
-                            <p className="flex text-white font-black text-base mt-5 pl-6">
-                                <img
-                                    src="/assets/footer/phone.png"
-                                    alt="Phone"
-                                    className="inline-block mr-2 w-7 h-7"
-                                />
-                                (82) 99643-2406
-                            </p>
-                            <p className="flex text-white font-black text-base mt-5 pl-6 mb-12">
-                                <img
-                                    src="/assets/footer/email.png"
-                                    alt="Email"
-                                    className="inline-block mr-2 w-7 h-7"
-                                />
-                                stormsports.oficial@gmail.com
-                            </p>
-                        </div>
-                    )}
                     <Toaster
                         position="top-right"
                         richColors
