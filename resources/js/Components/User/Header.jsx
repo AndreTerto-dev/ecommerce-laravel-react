@@ -130,11 +130,13 @@ export default function Header() {
 
                     {/* Logo */}
                     <div className="flex items-center">
-                        <img
-                            src="/assets/logo-text.png"
-                            alt="Logo"
-                            className="w-48 h-auto mr-2"
-                        />
+                        <a href="/">
+                            <img
+                                src="/assets/logo-text.png"
+                                alt="Logo"
+                                className="w-48 h-auto mr-2"
+                            />
+                        </a>
                     </div>
 
                     {/* Ações do Usuário */}
@@ -325,19 +327,23 @@ export default function Header() {
                 <header className="flex flex-col p-4 h-32 bg-gradient-to-b from-black to-[#1A1D1F] shadow-md w-full border-b-4 border-[#017bff]">
                     <div className="flex items-start justify-center gap-16 ml-10 mt-2">
                         <div className="flex items-center -ml-20 -mt-1">
-                            <img
-                                src="/assets/logo.png"
-                                alt="Logo"
-                                className="w-12 h-auto mr-1"
-                            />
-                            <div className="flex flex-col">
-                                <span className="text-blue-500 text-2xl font-bold -mb-1">
-                                    Storm
-                                </span>
-                                <span className="text-white text-lg opacity-80">
-                                    Sports
-                                </span>
-                            </div>
+                            <a href="/">
+                                <img
+                                    src="/assets/logo.png"
+                                    alt="Logo"
+                                    className="w-12 h-auto mr-1"
+                                />
+                            </a>
+                            <a href="/">
+                                <div className="flex flex-col">
+                                    <span className="text-blue-500 text-2xl font-bold -mb-1">
+                                        Storm
+                                    </span>
+                                    <span className="text-white text-lg opacity-80">
+                                        Sports
+                                    </span>
+                                </div>
+                            </a>
                         </div>
 
                         {/* Barra de Pesquisa */}
