@@ -11,13 +11,13 @@ export default function PerguntasFrequentes() {
             <Header />
 
             <div className="max-w-3xl mx-auto pt-8 px-4 pb-20">
-                <h1 className="text-4xl font-bold mb-12 text-center text-gray-800">
+                <h1 className="sm:text-4xl text-3xl font-bold mb-12 text-center text-gray-800">
                     Perguntas Frequentes
                 </h1>
 
-                <div className="space-y-10 text-gray-700 text-xl leading-relaxed">
+                <div className="space-y-10 text-gray-700 sm:text-xl text-lg leading-relaxed">
                     <div>
-                        <h2 className="text-2xl font-bold mb-3 text-gray-800">
+                        <h2 className="sm:text-2xl text-xl font-bold mb-3 text-gray-800">
                             O site é confiável?
                         </h2>
                         <p>
@@ -35,7 +35,7 @@ export default function PerguntasFrequentes() {
                     </div>
 
                     <div>
-                        <h2 className="text-2xl font-bold mb-3 text-gray-800">
+                        <h2 className="sm:text-2xl text-xl font-bold mb-3 text-gray-800">
                             Quais formas de pagamento posso aproveitar para
                             realizar minha compra?
                         </h2>
@@ -46,7 +46,7 @@ export default function PerguntasFrequentes() {
                     </div>
 
                     <div>
-                        <h2 className="text-2xl font-bold mb-3 text-gray-800">
+                        <h2 className="sm:text-2xl text-xl font-bold mb-3 text-gray-800">
                             Qual é o custo de envio?
                         </h2>
                         <p>
@@ -56,7 +56,7 @@ export default function PerguntasFrequentes() {
                     </div>
 
                     <div>
-                        <h2 className="text-2xl font-bold mb-3 text-gray-800">
+                        <h2 className="sm:text-2xl text-xl font-bold mb-3 text-gray-800">
                             Todas as compras acompanham código de rastreio?
                         </h2>
                         <p>
@@ -67,7 +67,7 @@ export default function PerguntasFrequentes() {
                     </div>
 
                     <div>
-                        <h2 className="text-2xl font-bold mb-3 text-gray-800">
+                        <h2 className="sm:text-2xl text-xl font-bold mb-3 text-gray-800">
                             Quando vou receber meu código de rastreio?
                         </h2>
                         <p>
@@ -83,7 +83,7 @@ export default function PerguntasFrequentes() {
                     </div>
 
                     <div>
-                        <h2 className="text-2xl font-bold mb-3 text-gray-800">
+                        <h2 className="sm:text-2xl text-xl font-bold mb-3 text-gray-800">
                             Meu código de rastreio não está mostrando as
                             informações
                         </h2>
@@ -97,14 +97,14 @@ export default function PerguntasFrequentes() {
                     </div>
 
                     <div>
-                        <h2 className="text-2xl font-bold mb-3 text-gray-800">
+                        <h2 className="sm:text-2xl text-xl font-bold mb-3 text-gray-800">
                             Onde posso receber meu pedido?
                         </h2>
                         <p>Realizamos envios para todo o país.</p>
                     </div>
 
                     <div>
-                        <h2 className="text-2xl font-bold mb-3 text-gray-800">
+                        <h2 className="sm:text-2xl text-xl font-bold mb-3 text-gray-800">
                             Qual prazo de entrega?
                         </h2>
                         <p>
@@ -116,7 +116,7 @@ export default function PerguntasFrequentes() {
                     </div>
 
                     <div>
-                        <h2 className="text-2xl font-bold mb-3 text-gray-800">
+                        <h2 className="sm:text-2xl text-xl font-bold mb-3 text-gray-800">
                             Qual o prazo para realizar uma troca?
                         </h2>
                         <p>
@@ -127,7 +127,7 @@ export default function PerguntasFrequentes() {
                     </div>
 
                     <div>
-                        <h2 className="text-2xl font-bold mb-3 text-gray-800">
+                        <h2 className="sm:text-2xl text-xl font-bold mb-3 text-gray-800">
                             O que devo fazer se o produto não chega em bom
                             estado?
                         </h2>
@@ -139,7 +139,7 @@ export default function PerguntasFrequentes() {
                     </div>
 
                     <div>
-                        <h2 className="text-2xl font-bold mb-3 text-gray-800">
+                        <h2 className="sm:text-2xl text-xl font-bold mb-3 text-gray-800">
                             Tem alguma taxa que ainda tenho que pagar do
                             produto?
                         </h2>
