@@ -9,10 +9,10 @@ export default function Troca() {
             <Head title="Trocas e Devoluções" />
             <Header />
             <div className="max-w-3xl mx-auto pt-8 px-4 pb-20">
-                <h1 className="text-4xl font-bold mb-12 text-center text-gray-800">
+                <h1 className="sm:text-4xl text-3xl font-bold mb-12 text-center text-gray-800">
                     Trocas e Devoluções
                 </h1>
-                <div className="text-xl mb-6 leading-relaxed">
+                <div className="sm:text-xl text-lg mb-6 leading-relaxed">
                     <p className="text-gray-800 font-bold">
                         NOSSO MAIOR COMPROMISSO É COM A SUA PLENA SATISFAÇÃO.
                     </p>
@@ -24,10 +24,10 @@ export default function Troca() {
                         devolução, exceto para produtos personalizados.
                     </p>
                 </div>
-                <h2 className="text-2xl font-semibold mb-4 text-gray-800">
+                <h2 className="sm:text-2xl text-xl font-semibold mb-4 text-gray-800">
                     Procedimentos para Troca ou Devolução:
                 </h2>
-                <ol className="list-decimal list-inside mb-6 text-gray-700 text-xl space-y-3 leading-relaxed">
+                <ol className="list-decimal list-inside mb-6 text-gray-700 sm:text-xl text-lg space-y-3 leading-relaxed">
                     <li>
                         <strong>Comunicação Inicial:</strong> O primeiro passo
                         para troca ou devolução é comunicar nossa Central de
@@ -57,18 +57,18 @@ export default function Troca() {
                         </ul>
                     </li>
                 </ol>
-                <h2 className="text-2xl font-semibold mb-4 text-gray-800">
+                <h2 className="sm:text-2xl text-xl font-semibold mb-4 text-gray-800">
                     Prazo para Solicitação:
                 </h2>
-                <p className="text-gray-700 text-xl mb-6 leading-relaxed">
+                <p className="text-gray-700 sm:text-xl text-lg mb-6 leading-relaxed">
                     Você tem até <strong>7 dias</strong>, a partir da data de
                     recebimento do produto, para fazer a solicitação de troca ou
                     devolução.
                 </p>
-                <h2 className="text-2xl font-semibold mb-4 text-gray-800">
+                <h2 className="sm:text-2xl text-xl font-semibold mb-4 text-gray-800">
                     Importante:
                 </h2>
-                <p className="text-gray-700 text-xl mb-4 leading-relaxed">
+                <p className="text-gray-700 sm:text-xl text-lg mb-4 leading-relaxed">
                     Não aceitamos trocas ou cancelamentos de produtos
                     personalizados. Produtos personalizados são confeccionados
                     de acordo com as especificações fornecidas pelo cliente, e,
