@@ -11,11 +11,11 @@ export default function Reembolso() {
             <Header />
 
             <div className="max-w-3xl mx-auto pt-8 px-4 pb-20">
-                <h1 className="text-4xl font-bold mb-12 text-center text-gray-800">
+                <h1 className="sm:text-4xl text-3xl font-bold mb-12 text-center text-gray-800">
                     Política de Reembolso
                 </h1>
 
-                <div className="text-gray-700 text-xl space-y-6 leading-relaxed">
+                <div className="text-gray-700 sm:text-xl text-lg space-y-6 leading-relaxed">
                     <p>NOSSO MAIOR COMPROMISSO É COM A SUA PLENA SATISFAÇÃO.</p>
                     <p>
                         Se você escolheu seu produto em nossa loja virtual, mas,
@@ -26,7 +26,7 @@ export default function Reembolso() {
                     </p>
                     <p>
                         Lembrando que o primeiro passo para troca ou devolução é
-                        comunicar nossa Central de Atendimento pelo E-mail:{" "}
+                        comunicar nossa Central de Atendimento pelo <br /> E-mail:{" "}
                         <strong>stormsports.oficial@gmail.com</strong> ou
                         WhatsApp: <strong>(82) 99643-2406</strong>.
                     </p>
