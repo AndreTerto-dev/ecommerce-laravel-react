@@ -3,7 +3,8 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper/modules"; // Módulos necessários
 import "swiper/swiper-bundle.css"; // Estilos do Swiper
 
-const Cards = () => {
+const FeaturesSection = () => {
+
     const [isMobile, setIsMobile] = useState(false);
 
     useEffect(() => {
@@ -19,52 +20,6 @@ const Cards = () => {
         };
     }, []);
 
-    const cardData = [
-        { href: "/brasileiros", src: "/assets/cards/brasileiros.png" },
-        { href: "/internacionais", src: "/assets/cards/internacionais.png" },
-        { href: "/selecoes", src: "/assets/cards/selecoes.png" },
-    ];
-
-    return isMobile ? (
-        <Swiper
-            spaceBetween={10}
-            slidesPerView={1}
-            grabCursor={true}
-            slidesPerGroup={1} // Número de slides a serem movidos por vez, dependendo da tela
-            freeMode={true}
-        >
-            {cardData.map((card, index) => (
-                <SwiperSlide key={index}>
-                    <div className="">
-                        <a href={card.href}>
-                            <img
-                                src={card.src}
-                                alt={`Banner ${card.href}`}
-                                className="h-auto rounded-xl"
-                            />
-                        </a>
-                    </div>
-                </SwiperSlide>
-            ))}
-        </Swiper>
-    ) : (
-        <div className="flex gap-6 mx-12 mt-12">
-            {cardData.map((card, index) => (
-                <div key={index}>
-                    <a href={card.href}>
-                        <img
-                            src={card.src}
-                            alt={`Banner ${card.href}`}
-                            className="h-auto rounded-xl"
-                        />
-                    </a>
-                </div>
-            ))}
-        </div>
-    );
-};
-
-const FeaturesSection = () => {
     const features = [
         {
             icon: "/assets/features/entrega.png",
@@ -89,32 +44,56 @@ const FeaturesSection = () => {
     ];
 
     return (
-        <div className="bg-white py-8">
-            <Swiper
-                modules={[Navigation, Pagination]}
-                spaceBetween={20}
-                slidesPerView={1}
-                pagination={{ clickable: true }}
-            >
-                {features.map((feature, index) => (
-                    <SwiperSlide key={index}>
-                        <div className="flex flex-col items-center text-center space-y-4 mb-14">
+        <>
+            {isMobile ? (
+                <div className="bg-white py-8">
+                    <Swiper
+                        modules={[Navigation, Pagination]}
+                        spaceBetween={20}
+                        slidesPerView={1}
+                        pagination={{ clickable: true }}
+                    >
+                        {features.map((feature, index) => (
+                            <SwiperSlide key={index}>
+                                <div className="flex flex-col items-center text-center space-y-4 mb-14">
+                                    <img
+                                        src={feature.icon}
+                                        alt={feature.title}
+                                        className="w-14 h-14"
+                                    />
+                                    <h3 className="font-semibold text-xl text-gray-800">
+                                        {feature.title}
+                                    </h3>
+                                    <p className="text-gray-600 text-sm">
+                                        {feature.description}
+                                    </p>
+                                </div>
+                            </SwiperSlide>
+                        ))}
+                    </Swiper>
+                </div>
+            ) : (
+                <div className="flex bg-white py-8 justify-center pb-16 gap-12">
+                    {features.map((feature, index) => (
+                        <div key={index} className="flex items-start space-x-2">
                             <img
                                 src={feature.icon}
                                 alt={feature.title}
                                 className="w-14 h-14"
                             />
-                            <h3 className="font-semibold text-xl text-gray-800">
-                                {feature.title}
-                            </h3>
-                            <p className="text-gray-600 text-sm">
-                                {feature.description}
-                            </p>
+                            <div>
+                                <h3 className="font-semibold text-xl mb-1 text-gray-800">
+                                    {feature.title}
+                                </h3>
+                                <p className="text-gray-600 text-sm">
+                                    {feature.description}
+                                </p>
+                            </div>
                         </div>
-                    </SwiperSlide>
-                ))}
-            </Swiper>
-        </div>
+                    ))}
+                </div>
+            )}
+        </>
     );
 };
 
