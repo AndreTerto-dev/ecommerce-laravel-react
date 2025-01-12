@@ -11,11 +11,11 @@ export default function QuemSomos() {
             <Header />
 
             <div className="max-w-3xl mx-auto pt-8 px-4 pb-20">
-                <h1 className="text-4xl font-bold mb-12 text-center text-gray-800">
+                <h1 className="sm:text-4xl text-3xl font-bold mb-12 text-center text-gray-800">
                     Quem Somos
                 </h1>
 
-                <div className="text-gray-700 text-xl leading-relaxed space-y-6">
+                <div className="text-gray-700 sm:text-xl text-lg leading-relaxed space-y-6">
                     <p>
                         Olá torcedor (a), queremos te agradecer por estar aqui
                         conhecendo a nossa loja :)
