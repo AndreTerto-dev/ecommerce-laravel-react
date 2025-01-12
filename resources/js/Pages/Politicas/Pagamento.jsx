@@ -11,11 +11,11 @@ export default function Pagamento() {
             <Header />
 
             <div className="max-w-3xl mx-auto pt-8 px-4 pb-20">
-                <h1 className="text-4xl font-bold mb-12 text-center text-gray-800">
+                <h1 className="sm:text-4xl text-3xl font-bold mb-12 text-center text-gray-800">
                     Política de Pagamento
                 </h1>
 
-                <div className="text-gray-700 text-xl space-y-6 leading-relaxed">
+                <div className="text-gray-700 sm:text-xl text-lg space-y-6 leading-relaxed">
                     <p className="font-bold">
                         Pague suas compras com segurança!
                     </p>
