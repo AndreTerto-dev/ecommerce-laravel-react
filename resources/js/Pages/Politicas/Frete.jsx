@@ -4,7 +4,7 @@ import Footer from "@/Components/User/Footer";
 import { Head } from "@inertiajs/react";
 
 export default function Frete() {
-    const textStyle = "text-gray-700 text-xl mb-6 leading-relaxed";
+    const textStyle = "text-gray-700 sm:text-xl text-lg mb-6 leading-relaxed";
 
     return (
         <div className="bg-gray-50 relative">
@@ -13,12 +13,12 @@ export default function Frete() {
             <Header />
 
             <div className="max-w-3xl mx-auto pt-8 px-4 pb-20">
-                <h1 className="text-4xl font-bold mb-12 text-center text-gray-800">
+                <h1 className="sm:text-4xl text-3xl font-bold mb-12 text-center text-gray-800">
                     Política de Frete
                 </h1>
 
                 <section className="mb-8">
-                    <h2 className="text-2xl font-semibold text-gray-700 mb-4">
+                    <h2 className="sm:text-2xl text-xl font-semibold text-gray-700 mb-4">
                         CUIDADOS COM ENDEREÇAMENTO DE PEDIDOS
                     </h2>
                     <div className={textStyle}>
@@ -31,7 +31,7 @@ export default function Frete() {
                 </section>
 
                 <section className="mb-8">
-                    <h2 className="text-2xl font-semibold text-gray-700 mb-4">
+                    <h2 className="sm:text-2xl text-xl font-semibold text-gray-700 mb-4">
                         DESTINATÁRIO AUSENTE
                     </h2>
                     <div className={textStyle}>
@@ -59,7 +59,7 @@ export default function Frete() {
                 </section>
 
                 <section className="mb-8">
-                    <h2 className="text-2xl font-semibold text-gray-700 mb-4">
+                    <h2 className="sm:text-2xl text-xl font-semibold text-gray-700 mb-4">
                         ENDEREÇO INCORRETO OU INCOMPLETO
                     </h2>
                     <div className={textStyle}>
@@ -76,7 +76,7 @@ export default function Frete() {
                 </section>
 
                 <section className="mb-8">
-                    <h2 className="text-2xl font-semibold text-gray-700 mb-4">
+                    <h2 className="sm:text-2xl text-xl font-semibold text-gray-700 mb-4">
                         PRAZO DE PROCESSAMENTO
                     </h2>
                     <div className={textStyle}>
@@ -86,9 +86,8 @@ export default function Frete() {
                     </div>
                 </section>
 
-                {/* O mesmo padrão foi aplicado para as outras seções */}
                 <section className="mb-8">
-                    <h2 className="text-2xl font-semibold text-gray-700 mb-4">
+                    <h2 className="sm:text-2xl text-xl font-semibold text-gray-700 mb-4">
                         PRAZO PARA ENVIO DO PRODUTO E CÓDIGO DE RASTREAMENTO
                     </h2>
                     <div className={textStyle}>
@@ -97,7 +96,7 @@ export default function Frete() {
                         Para rastrear, acesse:{" "}
                         <a
                             href="https://stormsports.com/rastrear-pedido"
-                            className="text-blue-500 underline"
+                            className="text-blue-500 underline sm:text-xl text-lg"
                         >
                             https://stormsports.com/rastrear-pedido
                         </a>
@@ -105,7 +104,7 @@ export default function Frete() {
                 </section>
 
                 <section className="mb-8">
-                    <h2 className="text-2xl font-semibold text-gray-700 mb-4">
+                    <h2 className="sm:text-2xl text-xl font-semibold text-gray-700 mb-4">
                         PRAZO DE ENTREGA
                     </h2>
                     <div className={textStyle}>
@@ -121,7 +120,7 @@ export default function Frete() {
                 </section>
 
                 <section className="mb-8">
-                    <h2 className="text-2xl font-semibold text-gray-700 mb-4">
+                    <h2 className="sm:text-2xl text-xl font-semibold text-gray-700 mb-4">
                         ORIGEM
                     </h2>
                     <div className={textStyle}>
@@ -133,7 +132,7 @@ export default function Frete() {
                 </section>
 
                 <section className="mb-8">
-                    <h2 className="text-2xl font-semibold text-gray-700 mb-4">
+                    <h2 className="sm:text-2xl text-xl font-semibold text-gray-700 mb-4">
                         FORMAS DE ENVIO
                     </h2>
                     <div className={textStyle}>
@@ -143,7 +142,7 @@ export default function Frete() {
                 </section>
 
                 <section className="mb-8">
-                    <h2 className="text-2xl font-semibold text-gray-700 mb-4">
+                    <h2 className="sm:text-2xl text-xl font-semibold text-gray-700 mb-4">
                         TAXAS DE IMPORTAÇÃO E ALFÂNDEGA
                     </h2>
                     <div className={textStyle}>
