@@ -11,13 +11,13 @@ export default function LojaConfiavel() {
             <Header />
 
             <div className="max-w-3xl mx-auto pt-8 px-4 pb-20">
-                <h1 className="text-4xl font-bold mb-12 text-center text-gray-800">
+                <h1 className="sm:text-4xl text-3xl font-bold mb-12 text-center text-gray-800">
                     Storm Sports é confiável?
                 </h1>
 
-                <div className="text-gray-700 text-xl leading-relaxed space-y-10">
+                <div className="text-gray-700 sm:text-xl text-lg leading-relaxed sm:space-y-10 space-y-6">
                     <div>
-                        <h2 className="text-xl font-bold mb-3 text-gray-800">
+                        <h2 className="sm:text-xl text-lg font-bold mb-3 text-gray-800">
                             A LOJA STORM SPORTS É CONFIÁVEL?
                         </h2>
                         <p>
@@ -27,7 +27,7 @@ export default function LojaConfiavel() {
                     </div>
 
                     <div>
-                        <h2 className="text-xl font-bold mb-3 text-gray-800">
+                        <h2 className="sm:text-xl text-lg font-bold mb-3 text-gray-800">
                             O PAGAMENTO É SEGURO?
                         </h2>
                         <p>
@@ -41,7 +41,7 @@ export default function LojaConfiavel() {
                     </div>
 
                     <div>
-                        <h2 className="text-xl font-bold mb-3 text-gray-800">
+                        <h2 className="sm:text-xl text-lg font-bold mb-3 text-gray-800">
                             A LOJA ENTREGA OS PRODUTOS?
                         </h2>
                         <p>
@@ -54,7 +54,7 @@ export default function LojaConfiavel() {
                     </div>
 
                     <div>
-                        <h2 className="text-xl font-bold mb-3 text-gray-800">
+                        <h2 className="sm:text-xl text-lg font-bold mb-3 text-gray-800">
                             A LOJA POSSUI SUPORTE?
                         </h2>
                         <p>
@@ -65,7 +65,7 @@ export default function LojaConfiavel() {
                     </div>
 
                     <div>
-                        <h2 className="text-xl font-bold mb-3 text-gray-800">
+                        <h2 className="sm:text-xl text-lg font-bold mb-3 text-gray-800">
                             FRETE GRÁTIS PARA TODO O BRASIL
                         </h2>
                         <p>Prazo de entrega de 3 a 7 dias.</p>
