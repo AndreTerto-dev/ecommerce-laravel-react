@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { Link, usePage, useForm } from "@inertiajs/react";
 import InputError from "@/Components/User/InputError";
 import PrimaryButton from "@/Components/User/PrimaryButton";
@@ -14,10 +14,12 @@ export default function Header() {
     });
 
     const [warning, setWarning] = useState(false);
-
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [isSearchOpen, setSearchOpen] = useState(false);
     const [isMobile, setIsMobile] = useState(false);
+    const [isLoginOpen, setLoginOpen] = useState(false); // Estado para controlar a visibilidade do login
+    const { auth } = usePage().props; // Acessa as props para verificar se o usuário está autenticado
+    const loginRef = useRef(null); // Ref para o componente de login
 
     useEffect(() => {
         const handleResize = () => {
@@ -54,12 +56,29 @@ export default function Header() {
         });
     };
 
-    const [isLoginOpen, setLoginOpen] = useState(false); // Estado para controlar a visibilidade do login
-    const { auth } = usePage().props; // Acessa as props para verificar se o usuário está autenticado
-
-    const toggleLogin = () => {
+    const toggleLogin = (e) => {
+        e.stopPropagation();
         setLoginOpen(!isLoginOpen); // Alterna o estado
     };
+
+    // Função para fechar o login ao clicar fora
+    useEffect(() => {
+        const handleClickOutside = (e) => {
+            if (
+                loginRef.current &&
+                !loginRef.current.contains(e.target) &&
+                e.target.id !== "login-icon" // Verifica se o clique não é no ícone
+            ) {
+                setLoginOpen(false);
+            }
+        };
+
+        document.addEventListener("mousedown", handleClickOutside);
+
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, []);
 
     return (
         <>
@@ -163,6 +182,7 @@ export default function Header() {
                                                 src="/assets/header/user-icon.png"
                                                 alt="Usuário"
                                                 className="w-6 h-auto mr-2"
+                                                id="login-icon"
                                             />
                                         </a>
                                     </div>
@@ -190,7 +210,8 @@ export default function Header() {
 
                         {!auth.user && (
                             <div
-                                className={`fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-white p-6 rounded-lg shadow-lg z-10 w-full h-5/6 mt-14 transform transition-all duration-300 ease-in-out ${
+                                ref={loginRef} // Adiciona a ref aqui
+                                className={`absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-white p-6 rounded-lg shadow-lg z-10 w-full h-5/6 mt-14 transform transition-all duration-300 ease-in-out ${
                                     isLoginOpen
                                         ? "scale-100 opacity-100"
                                         : "scale-95 opacity-0 pointer-events-none"
@@ -410,6 +431,7 @@ export default function Header() {
                                             href="#minha-conta"
                                             className="text-white font-bold text-base flex items-center"
                                             onClick={toggleLogin}
+                                            id="login-icon"
                                         >
                                             Minha Conta
                                             <img
@@ -466,6 +488,7 @@ export default function Header() {
                     {/* Caixa de Login com transição */}
                     {!auth.user && (
                         <div
+                            ref={loginRef}
                             className={`absolute right-80 top-28 bg-white p-6 rounded-lg shadow-lg z-10 w-80 transform transition-all duration-300 ease-in-out ${
                                 isLoginOpen
                                     ? "scale-100 opacity-100"
