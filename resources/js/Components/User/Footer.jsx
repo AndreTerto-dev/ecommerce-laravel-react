@@ -88,7 +88,8 @@ const Footer = () => {
                     <div className="mt-4 flex space-x-2 items-center">
                         <p>Redes sociais: </p>
                         <a
-                            href="#"
+                            href="https://www.instagram.com/stormsportsbr/"
+                            target="_blank"
                             aria-label="Instagram"
                             className="text-[#017bff] hover:text-gray-500 transition-colors flex items-center space-x-2"
                         >
@@ -102,6 +103,7 @@ const Footer = () => {
                         </a>
                         <a
                             href="#"
+                            target="_blank"
                             aria-label="Facebook"
                             className="text-[#017bff] hover:text-gray-500 transition-colors flex items-center space-x-2"
                         >
@@ -114,7 +116,8 @@ const Footer = () => {
                             </div>
                         </a>
                         <a
-                            href="#"
+                            href="https://www.tiktok.com/@stormsportsoficial"
+                            target="_blank"
                             aria-label="Tiktok"
                             className="text-[#017bff] hover:text-gray-500 transition-colors flex items-center space-x-2"
                         >
@@ -127,7 +130,8 @@ const Footer = () => {
                             </div>
                         </a>
                         <a
-                            href="#"
+                            href="https://www.youtube.com/@stormsportsbr/shorts"
+                            target="_blank"
                             aria-label="Youtube"
                             className="text-[#017bff] hover:text-gray-500 transition-colors flex items-center space-x-2"
                         >
