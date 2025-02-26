@@ -20,24 +20,20 @@ export default function Checkout({ cart }) {
         complement: "",
     });
 
+    const cupom = Math.floor(cart.total_quantity / 3) * 150;
+
     const subTotal = cart.items.reduce((sum, item) => {
-        return (
-            sum + item.product.price * item.quantity
-        );
+        return sum + item.price * item.quantity;
     }, 0);
 
-    const total = cart.items.reduce((sum, item) => {
-        return (
-            sum + (item.product.new_price || item.product.price) * item.quantity
-        );
-    }, 0);
+    const total =
+        cart.items.reduce((sum, item) => {
+            return sum + (item.new_price || item.price) * item.quantity;
+        }, 0) - cupom;
 
     const discount = cart.items.reduce((sum, item) => {
         return (
-            sum +
-            (item.product.price -
-                (item.product.new_price || item.product.price)) *
-                item.quantity
+            sum + (item.price - (item.new_price || item.price)) * item.quantity
         );
     }, 0);
 
@@ -46,7 +42,7 @@ export default function Checkout({ cart }) {
 
     // Calcula a parcela diretamente
     const installment = ((total * (1 + taxaJuros) ** meses) / meses).toFixed(2);
-    
+
     const handleRemove = (itemId) => {
         router.delete(route("cart.remove", itemId));
     };
@@ -60,19 +56,19 @@ export default function Checkout({ cart }) {
     };
 
     const [isMobile, setIsMobile] = useState(false);
-    
-        useEffect(() => {
-            const handleResize = () => {
-                setIsMobile(window.innerWidth < 640);
-            };
-    
-            handleResize();
-            window.addEventListener("resize", handleResize);
-    
-            return () => {
-                window.removeEventListener("resize", handleResize);
-            };
-        }, []);
+
+    useEffect(() => {
+        const handleResize = () => {
+            setIsMobile(window.innerWidth < 640);
+        };
+
+        handleResize();
+        window.addEventListener("resize", handleResize);
+
+        return () => {
+            window.removeEventListener("resize", handleResize);
+        };
+    }, []);
 
     return (
         <>
@@ -102,29 +98,28 @@ export default function Checkout({ cart }) {
                                 <div className="flex flex-col space-y-6 mt-6">
                                     {cart.items.map((item) => (
                                         <div
-                                            key={item.product.id}
+                                            key={item.id}
                                             className="flex items-start gap-4"
                                         >
                                             <img
-                                                src={item.product.image_path}
-                                                alt={item.product.name}
+                                                src={item.image_path}
+                                                alt={item.name}
                                                 className="w-20 h-20 object-cover rounded-md"
                                             />
                                             <div className="flex flex-col space-y-2">
                                                 <p className="font-semibold text-gray-800 w-48">
-                                                    {item.product.name}
+                                                    {item.name}
                                                 </p>
                                                 <div className="flex items-center gap-2">
                                                     <p className="text-[#017bff] font-bold">
                                                         R${"\u00A0"}
-                                                        {item.product
-                                                            .new_price ||
-                                                            item.product.price}
+                                                        {item.new_price ||
+                                                            item.price}
                                                     </p>
-                                                    {item.product.new_price && (
+                                                    {item.new_price && (
                                                         <p className="text-gray-400 line-through">
                                                             R${"\u00A0"}
-                                                            {item.product.price}
+                                                            {item.price}
                                                         </p>
                                                     )}
                                                 </div>
@@ -133,10 +128,8 @@ export default function Checkout({ cart }) {
                                                 <p className="font-semibold text-gray-800 text-right">
                                                     R${" "}
                                                     {(
-                                                        (item.product
-                                                            .new_price ||
-                                                            item.product
-                                                                .price) *
+                                                        (item.new_price ||
+                                                            item.price) *
                                                         item.quantity
                                                     ).toFixed(2)}
                                                 </p>
@@ -148,6 +141,7 @@ export default function Checkout({ cart }) {
                                                         data={{
                                                             product_id:
                                                                 item.product.id,
+                                                            item_id: item.id,
                                                             quantity: 1,
                                                         }}
                                                         as="button"
@@ -161,7 +155,7 @@ export default function Checkout({ cart }) {
                                                     <button
                                                         onClick={() =>
                                                             handleRemove(
-                                                                item.product.id
+                                                                item.id
                                                             )
                                                         }
                                                         className="px-2 bg-gray-200 rounded-lg hover:bg-gray-300"
@@ -186,6 +180,12 @@ export default function Checkout({ cart }) {
                                     <p className="text-gray-700">Desconto:</p>
                                     <p className="text-gray-700">
                                         R$ {discount.toFixed(2)}
+                                    </p>
+                                </div>
+                                <div className="flex justify-between">
+                                    <p className="text-gray-700">Cupom:</p>
+                                    <p className="text-gray-700">
+                                        R$ {cupom.toFixed(2)}
                                     </p>
                                 </div>
                                 <div className="flex justify-between">
@@ -831,6 +831,12 @@ export default function Checkout({ cart }) {
                                     <p className="text-gray-700">Desconto:</p>
                                     <p className="text-gray-700">
                                         R$ {discount.toFixed(2)}
+                                    </p>
+                                </div>
+                                <div className="flex justify-between">
+                                    <p className="text-gray-700">Cupom:</p>
+                                    <p className="text-gray-700">
+                                        R$ {cupom.toFixed(2)}
                                     </p>
                                 </div>
                                 <div className="flex justify-between">
