@@ -14,21 +14,22 @@ export default function Show({ cart }) {
         post(route("cart.add"), { product_id: productId, quantity: 1 });
     };
 
-    // Calcular total e desconto
-    const total = cart.items.reduce((sum, item) => {
-        return (
-            sum + (item.product.new_price || item.product.price) * item.quantity
-        );
-    }, 0);
+    const progressiveDiscount = Math.floor(cart.total_quantity / 3) * 150;
 
-    const discount = cart.items.reduce((sum, item) => {
-        return (
-            sum +
-            (item.product.price -
-                (item.product.new_price || item.product.price)) *
-                item.quantity
-        );
-    }, 0);
+    // Calcular total e desconto
+    const total =
+        cart.items.reduce((sum, item) => {
+            return sum + (item.new_price || item.price) * item.quantity;
+        }, 0) - progressiveDiscount; // Subtrai o desconto progressivo do total
+
+    // Calcular desconto total (desconto de promoção + desconto por novo preço)
+    const discount =
+        cart.items.reduce((sum, item) => {
+            return (
+                sum +
+                (item.price - (item.new_price || item.price)) * item.quantity
+            );
+        }, 0) + progressiveDiscount; // Soma o desconto progressivo
 
     const [isMobile, setIsMobile] = useState(false);
 
@@ -44,6 +45,31 @@ export default function Show({ cart }) {
             window.removeEventListener("resize", handleResize);
         };
     }, []);
+
+    const freeItems = [];
+    const paidItems = [];
+
+    // Criar cópia dos itens do carrinho para manipular
+    const itemsCopy = [...cart.items];
+
+    // Separar itens pagos e grátis
+    let freeItemCount = Math.floor(cart.total_quantity / 3);
+
+    itemsCopy.forEach((item) => {
+        let remainingQuantity = item.quantity;
+
+        // Se ainda houver itens gratuitos a serem atribuídos
+        while (freeItemCount > 0 && remainingQuantity > 0) {
+            freeItems.push({ ...item, quantity: 1 });
+            remainingQuantity--;
+            freeItemCount--;
+        }
+
+        // O restante vai para os itens pagos
+        if (remainingQuantity > 0) {
+            paidItems.push({ ...item, quantity: remainingQuantity });
+        }
+    });
 
     return (
         <>
@@ -61,111 +87,191 @@ export default function Show({ cart }) {
                                 </p>
                             ) : (
                                 <>
-                                    <div className="p-8 bg-white rounded-2xl shadow-2xl">
-
+                                    {/* Lista de itens pagos */}
+                                    <div className="py-8 px-6 bg-white rounded-2xl shadow-2xl">
                                         <ul className="space-y-6">
-                                            {cart.items.map((item) => {
-                                                console.log(item.product); // Verifique os dados do produto no console
-                                                return (
-                                                    <li
-                                                        key={item.product.id}
-                                                        className="py-4"
-                                                    >
-                                                        <div className="flex items-center space-x-4">
-                                                            <img
-                                                                src={
-                                                                    item.product
-                                                                        .image_path
-                                                                } // A URL da imagem do produto
-                                                                alt={
-                                                                    item.product
-                                                                        .name
+                                            {paidItems.map((item) => (
+                                                <li
+                                                    key={item.id}
+                                                    className="py-4"
+                                                >
+                                                    <div className="flex items-center space-x-4">
+                                                        <img
+                                                            src={
+                                                                item.image_path
+                                                            }
+                                                            alt={item.name}
+                                                            className="w-24 h-24 object-cover rounded-md"
+                                                        />
+                                                        <div className="space-y-1">
+                                                            <p className="text-base font-semibold text-gray-800">
+                                                                {item.name}
+                                                            </p>
+                                                            <p className="text-sm font-semibold text-gray-700">
+                                                                Tamanho:{" "}
+                                                                {item.size} /{" "}
+                                                                {
+                                                                    item.personalization
                                                                 }
-                                                                className="w-24 h-24 object-cover rounded-md"
-                                                            />
-                                                            <div className="space-y-1">
-                                                                <p className="text-base font-semibold text-gray-800">
-                                                                    {
-                                                                        item
-                                                                            .product
-                                                                            .name
-                                                                    }
+                                                            </p>
+                                                            <div className="flex gap-4">
+                                                                <p className="text-[#017bff] font-bold">
+                                                                    R${" "}
+                                                                    {item.new_price ??
+                                                                        item.price}
                                                                 </p>
-                                                                <p className="text-sm text-gray-500">
-                                                                    {
-                                                                        item
-                                                                            .product
-                                                                            .description
-                                                                    }
-                                                                </p>
-                                                                <div className="flex gap-4">
-                                                                    <p className="text-[#017bff] font-bold">
+                                                                {item.new_price && (
+                                                                    <p className="text-gray-400 line-through">
                                                                         R${" "}
-                                                                        {item
-                                                                            .product
-                                                                            .new_price ??
-                                                                            item
-                                                                                .product
-                                                                                .price}
+                                                                        {
+                                                                            item.price
+                                                                        }
                                                                     </p>
-                                                                    {item
-                                                                        .product
-                                                                        .new_price && (
-                                                                        <p className="text-gray-400 line-through">
-                                                                            R${" "}
-                                                                            {
-                                                                                item
-                                                                                    .product
-                                                                                    .price
-                                                                            }
-                                                                        </p>
-                                                                    )}
-                                                                </div>
+                                                                )}
                                                             </div>
                                                         </div>
+                                                    </div>
 
-                                                        <div className="flex items-center justify-center space-x-2 mt-4">
-                                                            <Link
-                                                                className="px-3 py-1 bg-gray-200 rounded-lg hover:bg-gray-300"
-                                                                href={route(
-                                                                    "cart.add"
-                                                                )}
-                                                                method="post"
-                                                                data={{
-                                                                    product_id:
-                                                                        item
-                                                                            .product
-                                                                            .id,
-                                                                    quantity: 1,
-                                                                }}
-                                                                as="button"
-                                                                type="button"
-                                                            >
-                                                                +
-                                                            </Link>
-                                                            <span className="text-lg font-semibold">
-                                                                {item.quantity}
-                                                            </span>
-                                                            <button
-                                                                onClick={() =>
-                                                                    handleRemove(
-                                                                        item
-                                                                            .product
-                                                                            .id
-                                                                    )
-                                                                }
-                                                                className="px-3 py-1 bg-gray-200 rounded-lg hover:bg-gray-300"
-                                                            >
-                                                                -
-                                                            </button>
-                                                        </div>
-                                                    </li>
-                                                );
-                                            })}
+                                                    <div className="flex items-center justify-center space-x-2 mt-4">
+                                                        <Link
+                                                            className="px-3 py-1 bg-gray-200 rounded-lg hover:bg-gray-300"
+                                                            href={route(
+                                                                "cart.add"
+                                                            )}
+                                                            method="post"
+                                                            data={{
+                                                                product_id:
+                                                                    item.product
+                                                                        .id,
+                                                                item_id:
+                                                                    item.id,
+                                                                quantity: 1,
+                                                            }}
+                                                            as="button"
+                                                            type="button"
+                                                        >
+                                                            +
+                                                        </Link>
+                                                        <span className="text-lg font-semibold">
+                                                            {item.quantity}
+                                                        </span>
+                                                        <button
+                                                            onClick={() =>
+                                                                handleRemove(
+                                                                    item.id
+                                                                )
+                                                            }
+                                                            className="px-3 py-1 bg-gray-200 rounded-lg hover:bg-gray-300"
+                                                        >
+                                                            -
+                                                        </button>
+                                                    </div>
+                                                </li>
+                                            ))}
                                         </ul>
+                                        {freeItems.length > 0 && (
+                                            <div>
+                                                <ul className="space-y-6">
+                                                    {freeItems.map((item) => (
+                                                        <li
+                                                            key={item.id}
+                                                            className="py-4"
+                                                        >
+                                                            <div className="flex items-center space-x-4">
+                                                                <img
+                                                                    src={
+                                                                        item.image_path
+                                                                    }
+                                                                    alt={
+                                                                        item.name
+                                                                    }
+                                                                    className="w-24 h-24 object-cover rounded-md"
+                                                                />
+                                                                <div className="space-y-1">
+                                                                    <p className="text-base font-semibold text-gray-800">
+                                                                        {
+                                                                            item.name
+                                                                        }
+                                                                    </p>
+                                                                    <p className="text-sm font-semibold text-gray-700">
+                                                                        Tamanho:{" "}
+                                                                        {
+                                                                            item.size
+                                                                        }{" "}
+                                                                        /{" "}
+                                                                        {
+                                                                            item.personalization
+                                                                        }
+                                                                    </p>
+                                                                    <p className="text-[#017bff] font-bold">
+                                                                        Grátis!
+                                                                    </p>
+                                                                    <p className="text-xs text-center bg-[#017bff] rounded-md p-1 font-extrabold">
+                                                                        LEVE 3
+                                                                        PAGUE 2
+                                                                        (- R${" "}
+                                                                        150,00)
+                                                                    </p>
+                                                                </div>
+                                                            </div>
+                                                            <div className="flex items-center justify-center space-x-2 mt-4">
+                                                                <Link
+                                                                    className="px-3 py-1 bg-gray-200 rounded-lg hover:bg-gray-300"
+                                                                    href={route(
+                                                                        "cart.add"
+                                                                    )}
+                                                                    method="post"
+                                                                    data={{
+                                                                        product_id:
+                                                                            item
+                                                                                .product
+                                                                                .id,
+                                                                        item_id:
+                                                                            item.id,
+                                                                        quantity: 1,
+                                                                    }}
+                                                                    as="button"
+                                                                    type="button"
+                                                                >
+                                                                    +
+                                                                </Link>
+                                                                <span className="text-lg font-semibold">
+                                                                    {
+                                                                        item.quantity
+                                                                    }
+                                                                </span>
+                                                                <button
+                                                                    onClick={() =>
+                                                                        handleRemove(
+                                                                            item.id
+                                                                        )
+                                                                    }
+                                                                    className="px-3 py-1 bg-gray-200 rounded-lg hover:bg-gray-300"
+                                                                >
+                                                                    -
+                                                                </button>
+                                                            </div>
+                                                        </li>
+                                                    ))}
+                                                </ul>
+                                            </div>
+                                        )}
                                     </div>
 
+                                    {/* Seção de Itens Grátis */}
+
+                                    {/* Resumo do Carrinho */}
                                     <div className="px-8 py-12 bg-white shadow-2xl rounded-2xl text-center mt-10">
+                                        {cart.total_quantity >= 3 && (
+                                            <p className="text-sm font-bold text-[#017bff] mb-4">
+                                                Compre 2 leve 3 (-R$
+                                                {Math.floor(
+                                                    cart.total_quantity / 3
+                                                ) * 150}
+                                                )
+                                            </p>
+                                        )}
+
                                         <h2 className="text-xl font-extrabold text-gray-950 mb-2">
                                             Total R$ {total.toFixed(2)}
                                         </h2>
@@ -229,57 +335,42 @@ export default function Show({ cart }) {
                                         </div>
 
                                         <ul className="space-y-6">
-                                            {cart.items.map((item) => {
-                                                console.log(item.product); // Verifique os dados do produto no console
+                                            {paidItems.map((item) => {
                                                 return (
                                                     <li
-                                                        key={item.product.id}
+                                                        key={item.id}
                                                         className="flex items-center justify-between py-4"
                                                     >
                                                         <div className="flex items-center space-x-4">
                                                             <img
                                                                 src={
-                                                                    item.product
-                                                                        .image_path
+                                                                    item.image_path
                                                                 } // A URL da imagem do produto
-                                                                alt={
-                                                                    item.product
-                                                                        .name
-                                                                }
+                                                                alt={item.name}
                                                                 className="w-28 h-28 object-cover rounded-md"
                                                             />
                                                             <div>
                                                                 <p className="text-lg font-semibold text-gray-800">
-                                                                    {
-                                                                        item
-                                                                            .product
-                                                                            .name
-                                                                    }
+                                                                    {item.name}
                                                                 </p>
-                                                                <p className="text-sm text-gray-500">
+                                                                <p className="text-base font-semibold text-gray-700">
+                                                                    Tamanho:{" "}
+                                                                    {item.size}{" "}
+                                                                    /{" "}
                                                                     {
-                                                                        item
-                                                                            .product
-                                                                            .description
+                                                                        item.personalization
                                                                     }
                                                                 </p>
                                                                 <p className="text-[#017bff] font-bold">
                                                                     R${" "}
-                                                                    {item
-                                                                        .product
-                                                                        .new_price ??
-                                                                        item
-                                                                            .product
-                                                                            .price}
+                                                                    {item.new_price ??
+                                                                        item.price}
                                                                 </p>
-                                                                {item.product
-                                                                    .new_price && (
+                                                                {item.new_price && (
                                                                     <p className="text-gray-400 line-through">
                                                                         R${" "}
                                                                         {
-                                                                            item
-                                                                                .product
-                                                                                .price
+                                                                            item.price
                                                                         }
                                                                     </p>
                                                                 )}
@@ -298,6 +389,8 @@ export default function Show({ cart }) {
                                                                             item
                                                                                 .product
                                                                                 .id,
+                                                                        item_id:
+                                                                            item.id,
                                                                         quantity: 1,
                                                                     }}
                                                                     as="button"
@@ -313,9 +406,7 @@ export default function Show({ cart }) {
                                                                 <button
                                                                     onClick={() =>
                                                                         handleRemove(
-                                                                            item
-                                                                                .product
-                                                                                .id
+                                                                            item.id
                                                                         )
                                                                     }
                                                                     className="px-3 py-1 bg-gray-200 rounded-lg hover:bg-gray-300"
@@ -325,20 +416,137 @@ export default function Show({ cart }) {
                                                             </div>
                                                             <p className="text-lg font-semibold text-gray-800 w-24">
                                                                 R${" "}
-                                                                {(item.product
-                                                                    .new_price ||
-                                                                    item.product
-                                                                        .price) *
+                                                                {(item.new_price ||
+                                                                    item.price) *
                                                                     item.quantity}
                                                             </p>
                                                         </div>
                                                     </li>
                                                 );
                                             })}
+
+                                            {/* Exibir os itens gratuitos */}
+                                            {freeItems.length > 0 && (
+                                                <div>
+                                                    <ul className="space-y-6">
+                                                        {freeItems.map(
+                                                            (item) => {
+                                                                return (
+                                                                    <li
+                                                                        key={
+                                                                            item.id
+                                                                        }
+                                                                        className="flex items-center justify-between py-4"
+                                                                    >
+                                                                        <div className="flex items-center space-x-4">
+                                                                            <img
+                                                                                src={
+                                                                                    item.image_path
+                                                                                }
+                                                                                alt={
+                                                                                    item.name
+                                                                                }
+                                                                                className="w-28 h-28 object-cover rounded-md"
+                                                                            />
+                                                                            <div>
+                                                                                <p className="text-lg font-semibold text-gray-800">
+                                                                                    {
+                                                                                        item.name
+                                                                                    }
+                                                                                </p>
+                                                                                <p className="text-base font-semibold text-gray-700">
+                                                                                    Tamanho:{" "}
+                                                                                    {
+                                                                                        item.size
+                                                                                    }{" "}
+                                                                                    /{" "}
+                                                                                    {
+                                                                                        item.personalization
+                                                                                    }
+                                                                                </p>
+                                                                                <p className="text-[#017bff] font-bold">
+                                                                                    Grátis!
+                                                                                </p>
+                                                                                <p className="text-xs text-center bg-[#017bff] rounded-md p-1 font-extrabold mt-1">
+                                                                                    CUPOM
+                                                                                    APLICADO
+                                                                                    -
+                                                                                    LEVE
+                                                                                    3
+                                                                                    PAGUE
+                                                                                    2
+                                                                                    (-
+                                                                                    R${" "}
+                                                                                    150,00
+                                                                                    )
+                                                                                </p>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div className="flex">
+                                                                            <div className="flex items-center space-x-2 mr-24 w-20">
+                                                                                <Link
+                                                                                    className="px-3 py-1 bg-gray-200 rounded-lg hover:bg-gray-300"
+                                                                                    href={route(
+                                                                                        "cart.add"
+                                                                                    )}
+                                                                                    method="post"
+                                                                                    data={{
+                                                                                        product_id:
+                                                                                            item
+                                                                                                .product
+                                                                                                .id,
+                                                                                        item_id:
+                                                                                            item.id,
+                                                                                        quantity: 1,
+                                                                                    }}
+                                                                                    as="button"
+                                                                                    type="button"
+                                                                                >
+                                                                                    +
+                                                                                </Link>
+                                                                                <span className="text-lg font-semibold">
+                                                                                    {
+                                                                                        item.quantity
+                                                                                    }
+                                                                                </span>
+                                                                                <button
+                                                                                    onClick={() =>
+                                                                                        handleRemove(
+                                                                                            item.id
+                                                                                        )
+                                                                                    }
+                                                                                    className="px-3 py-1 bg-gray-200 rounded-lg hover:bg-gray-300"
+                                                                                >
+                                                                                    -
+                                                                                </button>
+                                                                            </div>
+                                                                            <p className="text-lg font-semibold text-gray-800 w-24">
+                                                                                R${" "}
+                                                                                {
+                                                                                    0
+                                                                                }
+                                                                            </p>
+                                                                        </div>
+                                                                    </li>
+                                                                );
+                                                            }
+                                                        )}
+                                                    </ul>
+                                                </div>
+                                            )}
                                         </ul>
                                     </div>
 
                                     <div className="px-8 py-12 bg-white shadow-2xl rounded-2xl text-center">
+                                        {cart.total_quantity >= 3 && (
+                                            <p className="text-sm font-bold text-[#017bff] mb-4">
+                                                Compre 2 leve 3 (-R$
+                                                {Math.floor(
+                                                    cart.total_quantity / 3
+                                                ) * 150}
+                                                )
+                                            </p>
+                                        )}
                                         <h2 className="text-xl font-extrabold text-gray-950 mb-2">
                                             Total R$ {total.toFixed(2)}
                                         </h2>
