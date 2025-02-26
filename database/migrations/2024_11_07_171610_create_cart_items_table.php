@@ -15,7 +15,13 @@ return new class extends Migration
             $table->id();
             $table->foreignId('shopping_cart_id')->constrained('shopping_carts')->onDelete('cascade');
             $table->foreignId('product_id')->constrained('products')->onDelete('cascade');
+            $table->string('name');
+            $table->string('image_path');
+            $table->double('price');
+            $table->double('new_price');
             $table->integer('quantity')->default(1);
+            $table->string('size');
+            $table->string('personalization');
             $table->timestamps();
         });
     }
