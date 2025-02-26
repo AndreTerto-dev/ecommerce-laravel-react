@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->nullable()->constrained('users')->onDelete('cascade');
             $table->uuid('guest_id')->nullable(); // Campo para identificar visitantes
+            $table->integer('total_quantity')->nullable();
             $table->timestamps();
         });
     }
