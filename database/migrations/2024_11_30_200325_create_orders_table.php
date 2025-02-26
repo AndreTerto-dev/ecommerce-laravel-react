@@ -14,7 +14,9 @@ return new class extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id(); 
             $table->foreignId('user_id')->nullable()->constrained('users')->onDelete('cascade');
-            $table->decimal('total_amount', 10, 2); 
+            $table->decimal('total_amount', 10, 2);
+            $table->string('size');
+            $table->string('personalization');
             $table->string('status')->nullable();
             $table->string('email');
             $table->string('full_name');
