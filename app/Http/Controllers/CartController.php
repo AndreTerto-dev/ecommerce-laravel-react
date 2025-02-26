@@ -29,16 +29,24 @@ class CartController extends Controller
 
         $cart['items'] = $cart['items']->map(function ($item) {
             $product = $item->product;
-            $product->image_path = $product->image_path ? Storage::url($product->image_path) : '';
+
+            // Evita duplicação de "/storage/"
+            if (!str_starts_with($product->image_path, '/storage/')) {
+                $product->image_path = Storage::url($product->image_path);
+            }
 
             return [
-                'product' => new ProductResource($product), // Usa o ProductResource para formatar o produto
+                'product' => new ProductResource($product),
                 'quantity' => $item->quantity
             ];
         });
 
-        return inertia('Cart/Show', ['cart' => $cart]);
+        $totalQuantity = $cart['items']->sum('quantity');
+        $cart['total_quantity'] = $totalQuantity;
 
+        
+
+        return inertia('Cart/Show', ['cart' => $cart]);
     }
 
     /**
@@ -46,11 +54,6 @@ class CartController extends Controller
      */
     public function addItem(CartItemRequest $request)
     {
-        $request->validate([
-            'product_id' => 'required|exists:products,id',
-            'quantity' => 'required|integer|min:1',
-        ]);
-
         $product = Product::find($request->product_id);
 
         if (Auth::check()) {
@@ -60,7 +63,7 @@ class CartController extends Controller
             $cart = ShoppingCart::firstOrCreate(['guest_id' => $guestId]);
         }
 
-        $cartItem = CartItem::where('product_id', $product->id)->where('shopping_cart_id', $cart->id)->first();
+        $cartItem = CartItem::where('id', $request->item_id)->where('shopping_cart_id', $cart->id)->first();
 
         if ($cartItem) {
             $cartItem->increment('quantity', $request->quantity);
@@ -71,7 +74,6 @@ class CartController extends Controller
                 'shopping_cart_id' => $cart->id,
             ]);
         }
-
     }
 
     /**
@@ -88,7 +90,7 @@ class CartController extends Controller
         }
 
         if ($cart) {
-            $cartItem = CartItem::where('product_id', $itemId)
+            $cartItem = CartItem::where('id', $itemId)
                 ->where('shopping_cart_id', $cart->id)
                 ->first();
 
@@ -100,7 +102,6 @@ class CartController extends Controller
                 }
             }
         }
-
     }
 
     /**
@@ -165,15 +166,27 @@ class CartController extends Controller
             $cart = ShoppingCart::firstOrCreate(['guest_id' => $guestId]);
         }
 
-        $cartItem = CartItem::where('product_id', $product->id)->where('shopping_cart_id', $cart->id)->first();
+        $cartItem = CartItem::where('product_id', $product->id)
+            ->where('shopping_cart_id', $cart->id)
+            ->where('size', $request->size)
+            ->where('personalization', $request->personalization)
+            ->first();
 
         if ($cartItem) {
             $cartItem->increment('quantity', $request->quantity);
         } else {
             CartItem::create([
                 'product_id' => $product->id,
+                'name' => $product->name,
                 'quantity' => $request->quantity,
                 'shopping_cart_id' => $cart->id,
+                'price' => $request->price,
+                'new_price' => $request->new_price,
+                'size' => $request->size,
+                'personalization' => $request->personalization,
+                'image_path' => Storage::url(
+                    $product->image_path
+                ),
             ]);
         }
 
