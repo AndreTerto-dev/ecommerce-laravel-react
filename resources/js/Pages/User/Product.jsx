@@ -5,9 +5,13 @@ import { useEffect, useState } from "react";
 import Footer from "@/Components/User/Footer";
 import { toast } from "sonner";
 
-const Product = ({ product, images, warning }) => {
+const Product = ({ item, product, images, warning }) => {
     const [isMobile, setIsMobile] = useState(false);
     const [selectedImage, setSelectedImage] = useState(images[0]);
+    const [selectedSize, setSelectedSize] = useState(null);
+    const [selectedPersonalization, setSelectedPersonalization] =
+        useState(false); // Personalização não selecionada por padrão
+    const [updatedProduct, setUpdatedProduct] = useState(product.data);
 
     useEffect(() => {
         const handleResize = () => {
@@ -26,6 +30,27 @@ const Product = ({ product, images, warning }) => {
         }
     }, [warning]);
 
+    useEffect(() => {
+        let newPrice = Number(product.data.new_price);
+        let price = Number(product.data.price);
+
+
+        if (selectedSize === "XXG") {
+            newPrice += 10; // Adiciona +10 para tamanhos XXG
+            price += 10;
+        }
+        if (selectedPersonalization) {
+            newPrice += 20; // Adiciona +20 para personalização
+            price += 20;
+        }
+
+        setUpdatedProduct({
+            ...updatedProduct,
+            new_price: newPrice,
+            price: price,
+        });
+    }, [selectedSize, selectedPersonalization]);
+
     return (
         <User>
             <Head title={product.data.name} />
@@ -41,7 +66,6 @@ const Product = ({ product, images, warning }) => {
                 >
                     {isMobile ? (
                         <div className="flex flex-col items-center">
-                            {/* Imagem principal */}
                             <div className="rounded-lg mb-4">
                                 <img
                                     src={selectedImage}
@@ -50,7 +74,6 @@ const Product = ({ product, images, warning }) => {
                                 />
                             </div>
 
-                            {/* Miniaturas */}
                             <div className="flex w-20 space-x-4">
                                 {images.map((image_path, index) => (
                                     <div
@@ -75,7 +98,6 @@ const Product = ({ product, images, warning }) => {
                         </div>
                     ) : (
                         <div className="flex flex-row space-x-4">
-                            {/* Miniaturas no desktop */}
                             <div className="w-20 flex flex-col space-y-2">
                                 {images.map((image_path, index) => (
                                     <div
@@ -98,7 +120,6 @@ const Product = ({ product, images, warning }) => {
                                 ))}
                             </div>
 
-                            {/* Imagem principal no desktop */}
                             <div className="flex-1">
                                 <div className="max-w-lg h-auto mb-4 p-4">
                                     <img
@@ -125,43 +146,70 @@ const Product = ({ product, images, warning }) => {
                                 </p>
                             </div>
                             <h1 className="text-2xl font-bold">
-                                {product.data.name}
+                                {updatedProduct.name}
                             </h1>
                             <p className="text-lg text-red-500 line-through">
                                 R${" "}
-                                {Number(product.data.price)
+                                {Number(updatedProduct.price)
                                     .toFixed(2)
                                     .replace(".", ",")}
                             </p>
                             <p className="text-green-500 font-bold text-3xl">
                                 R${" "}
-                                {Number(product.data.new_price)
+                                {Number(updatedProduct.new_price)
                                     .toFixed(2)
                                     .replace(".", ",")}
                             </p>
                             <p className="text-gray-500">
                                 ou 12x de R${" "}
-                                {Number(product.data.installments)
-                                    .toFixed(2)
-                                    .replace(".", ",")}
+                                {Number(updatedProduct.new_price / 12).toFixed(
+                                    2
+                                )}
                             </p>
 
                             <div className="flex space-x-2">
-                                {["P", "M", "G", "GG", "XG", "XXG"].map((size) => (
-                                    <button
-                                        key={size}
-                                        className="px-4 py-2 border rounded-lg hover:bg-gray-200"
-                                    >
-                                        {size}
-                                    </button>
-                                ))}
+                                {["P", "M", "G", "GG", "XG", "XXG"].map(
+                                    (size) => (
+                                        <button
+                                            key={size}
+                                            onClick={() =>
+                                                setSelectedSize(size)
+                                            }
+                                            className={`px-4 py-2 border rounded-lg hover:bg-gray-200 ${
+                                                selectedSize === size
+                                                    ? "bg-gray-300"
+                                                    : ""
+                                            }`}
+                                        >
+                                            {size}
+                                        </button>
+                                    )
+                                )}
                             </div>
 
                             <div className="flex space-x-4">
-                                <button className="px-4 py-2 border rounded-lg text-[#017bff] border-[#017bff]">
+                                <button
+                                    onClick={() =>
+                                        setSelectedPersonalization(false)
+                                    }
+                                    className={`px-4 py-2 border rounded-lg ${
+                                        !selectedPersonalization
+                                            ? "bg-gray-300"
+                                            : "text-[#017bff] border-[#017bff]"
+                                    }`}
+                                >
                                     Sem Personalização
                                 </button>
-                                <button className="px-4 py-2 border rounded-lg">
+                                <button
+                                    onClick={() =>
+                                        setSelectedPersonalization(true)
+                                    }
+                                    className={`px-4 py-2 border rounded-lg ${
+                                        selectedPersonalization
+                                            ? "bg-gray-300"
+                                            : ""
+                                    }`}
+                                >
                                     Com Personalização
                                 </button>
                             </div>
@@ -173,6 +221,12 @@ const Product = ({ product, images, warning }) => {
                                     data={{
                                         product_id: product.data.id,
                                         quantity: 1,
+                                        size: selectedSize || "M", // Definindo um valor padrão se for null
+                                        personalization: selectedPersonalization
+                                            ? "Com Personalização"
+                                            : "Sem Personalização",
+                                        price: updatedProduct.price,
+                                        new_price: updatedProduct.new_price,
                                     }}
                                     as="button"
                                     type="button"
