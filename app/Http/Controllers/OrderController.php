@@ -39,6 +39,9 @@ class OrderController extends Controller
             ];
         });
 
+        $totalQuantity = $cart['items']->sum('quantity');
+        $cart['total_quantity'] = $totalQuantity;
+
         return inertia('Order/Checkout', ['cart' => $cart]);
     }
 
