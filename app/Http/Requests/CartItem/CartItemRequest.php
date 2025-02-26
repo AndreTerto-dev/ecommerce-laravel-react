@@ -10,7 +10,12 @@ class CartItemRequest extends FormRequest
     {
         return [
             'product_id' => 'required|exists:products,id',
+            'name' => 'string|max:60',
             'quantity' => 'required|integer|min:1',
+            'price' => 'numeric|min:0',
+            'size' => 'string',
+            'personalization' => 'string',
+            'image_path' => 'nullable|string|max:255',
         ];
     }
 }
