@@ -12,7 +12,7 @@ class ShoppingCartResource extends JsonResource
             'id' => $this->id,
             'user_id' => $this->user_id,
             'guest_id' => $this->guest_id,
-            'total_quantity' => $this->items->sum('quantity'),
+            'total_quantity' => $this->total_quantity,
             'items' => CartItemResource::collection($this->items),
         ];
     }
