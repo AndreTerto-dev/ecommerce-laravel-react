@@ -16,6 +16,8 @@ class OrderRequest extends FormRequest
     {
         return [ 
             'total_amount' => 'required|numeric', 
+            'size' => 'required|string',
+            'personalization' => 'required|string',
             'full_name' => 'required|string',
             'status' => 'nullable|string', 
             'email' => 'required|email',
