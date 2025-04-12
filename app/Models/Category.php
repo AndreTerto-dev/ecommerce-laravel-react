@@ -12,4 +12,20 @@ class Category extends Model
     protected $table = 'categories';
 
     protected $guarded = [];
+
+    /**
+     * Relacionamento de uma categoria com a sua categoria pai.
+     */
+    public function parent()
+    {
+        return $this->belongsTo(Category::class, 'parent_id');
+    }
+
+    /**
+     * Relacionamento de uma categoria com suas subcategorias.
+     */
+    public function subcategories()
+    {
+        return $this->hasMany(Category::class, 'parent_id');
+    }
 }
